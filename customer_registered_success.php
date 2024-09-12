@@ -50,7 +50,7 @@
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -76,7 +76,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -169,7 +169,7 @@ $conn->close();
         <hr>
         <div class="row">
             <div class="col-sm-6">
-                <h5>© 2018 Patna Car Rental</h5>
+                <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
             </div>
         </div>
     </div>

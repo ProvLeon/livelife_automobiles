@@ -2,8 +2,10 @@
 <html>
 <?php
 session_start();
+
 require 'connection.php';
 $conn = Connect();
+
 ?>
 <head>
     <meta charset="utf-8">

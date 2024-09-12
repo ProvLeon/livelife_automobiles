@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 session_start();
+
 require 'connection.php';
 $conn = Connect();
+
 ?>
 <head>
 <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
@@ -32,7 +34,7 @@ $conn = Connect();
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -58,7 +60,7 @@ $conn = Connect();
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -114,7 +116,7 @@ $conn = Connect();
     </nav>
 <body>
 
-<?php 
+<?php
 $id = $_GET["id"];
 $distance = NULL;
 $distance_or_days = $conn->real_escape_string($_POST['distance_or_days']);
@@ -129,7 +131,7 @@ $result0 = $conn->query($sql0);
 
 if(mysqli_num_rows($result0) > 0) {
     while($row0 = mysqli_fetch_assoc($result0)){
-            $rent_end_date = $row0["rent_end_date"];  
+            $rent_end_date = $row0["rent_end_date"];
             $rent_start_date = $row0["rent_start_date"];
             $car_name = $row0["car_name"];
             $car_nameplate = $row0["car_nameplate"];
@@ -150,7 +152,7 @@ $total_fine = $extra_days*200;
 $duration = dateDiff("$rent_start_date","$rent_end_date");
 
 if($extra_days>0) {
-    $total_amount = $total_amount + $total_fine;  
+    $total_amount = $total_amount + $total_fine;
 }
 
 if($charge_type == "days"){
@@ -164,7 +166,7 @@ if($charge_type == "days"){
 $result1 = $conn->query($sql1);
 
 if ($result1){
-     $sql2 = "UPDATE cars c, driver d, rentedcars rc SET c.car_availability='yes', d.driver_availability='yes' 
+     $sql2 = "UPDATE cars c, driver d, rentedcars rc SET c.car_availability='yes', d.driver_availability='yes'
      WHERE rc.car_id=c.car_id AND rc.driver_id=d.driver_id AND rc.customer_username = '$login_customer' AND rc.id = '$id'";
      $result2 = $conn->query($sql2);
 }
@@ -201,7 +203,7 @@ else {
                 <br>
                 <h4> <strong>Vehicle Number:</strong> <?php echo $car_nameplate; ?></h4>
                 <br>
-                <h4> <strong>Fare:&nbsp;</strong>  ₹<?php 
+                <h4> <strong>Fare:&nbsp;</strong>  ₹<?php
             if($charge_type == "days"){
                     echo ($fare . "/day");
                 } else {
@@ -225,7 +227,7 @@ else {
                 <br>
                 <?php
                     if($extra_days > 0){
-                        
+
                 ?>
                 <h4> <strong>Total Fine:</strong> <label class="text-danger"> ₹<?php echo $total_fine; ?>/- </label> for <?php echo $extra_days;?> extra days.</h4>
                 <br>
@@ -245,7 +247,7 @@ else {
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

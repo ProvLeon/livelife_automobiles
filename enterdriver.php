@@ -1,8 +1,10 @@
 
 <!DOCTYPE html>
 <html>
-<?php 
+
+<?php
 include('session_client.php'); ?>
+
 <head>
 <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
@@ -29,7 +31,7 @@ include('session_client.php'); ?>
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -55,7 +57,7 @@ include('session_client.php'); ?>
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -118,7 +120,7 @@ include('session_client.php'); ?>
 
           <div class="form-group">
             <input type="text" class="form-control" id="dl_number" name="dl_number" placeholder="Driving License Number" required>
-          </div>     
+          </div>
 
           <div class="form-group">
             <input type="text" class="form-control" id="driver_phone" name="driver_phone" placeholder="Contact" required>
@@ -132,7 +134,7 @@ include('session_client.php'); ?>
             <input type="text" class="form-control" id="driver_gender" name="driver_gender" placeholder="Gender" required>
           </div>
 
-           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"> Add Driver</button>    
+           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"> Add Driver</button>
         </form>
       </div>
     </div>
@@ -143,6 +145,9 @@ include('session_client.php'); ?>
           <h3 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> My Drivers </h3>
 <?php
 // Storing Session
+require 'connection.php';
+$conn = Connect();
+
 $user_check=$_SESSION['login_client'];
 $sql = "SELECT * FROM driver d WHERE d.client_username='$user_check' ORDER BY driver_name";
 $result = mysqli_query($conn, $sql);
@@ -177,10 +182,10 @@ if (mysqli_num_rows($result) > 0) {
       <td><?php echo $row["driver_phone"]; ?></td>
       <td><?php echo $row["driver_address"]; ?></td>
       <td><?php echo $row["driver_availability"]; ?></td>
-      
+
     </tr>
   </tbody>
-  
+
   <?php } ?>
   </table>
     <br>
@@ -194,7 +199,7 @@ if (mysqli_num_rows($result) > 0) {
 
         </form>
 
-</div>        
+</div>
         </div>
     </div>
 
@@ -204,7 +209,7 @@ if (mysqli_num_rows($result) > 0) {
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

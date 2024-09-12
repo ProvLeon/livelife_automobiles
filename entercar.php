@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-<?php 
-include('session_client.php'); ?> 
+<?php
+include('session_client.php'); ?>
+
 <head>
 <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
@@ -30,7 +31,7 @@ include('session_client.php'); ?>
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -56,7 +57,7 @@ include('session_client.php'); ?>
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -119,7 +120,7 @@ include('session_client.php'); ?>
 
           <div class="form-group">
             <input type="text" class="form-control" id="car_nameplate" name="car_nameplate" placeholder="Vehicle Number (Name Plate Number)" required>
-          </div>     
+          </div>
 
           <div class="form-group">
             <input type="text" class="form-control" id="ac_price" name="ac_price" placeholder="AC Fare per km (in rupees)" required>
@@ -140,7 +141,7 @@ include('session_client.php'); ?>
           <div class="form-group">
             <input name="uploadedimage" type="file">
           </div>
-           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"> Add car</button>    
+           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"> Add car</button>
         </form>
       </div>
     </div>
@@ -153,6 +154,9 @@ include('session_client.php'); ?>
           <h3 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> My Cars </h3>
 <?php
 // Storing Session
+require 'connection.php';
+$conn = Connect();
+
 $user_check=$_SESSION['login_client'];
 $sql = "SELECT * FROM cars WHERE car_id IN (SELECT car_id FROM clientcars WHERE client_username='$user_check');";
 $result = mysqli_query($conn, $sql);
@@ -189,7 +193,7 @@ if (mysqli_num_rows($result) > 0) {
       <td><?php echo $row["ac_price_per_day"]; ?></td>
       <td><?php echo $row["non_ac_price_per_day"]; ?></td>
       <td><?php echo $row["car_availability"]; ?></td>
-      
+
     </tr>
   </tbody>
   <?php } ?>
@@ -200,7 +204,7 @@ if (mysqli_num_rows($result) > 0) {
   <h4><center>0 Cars available</center> </h4>
   <?php } ?>
         </form>
-</div>        
+</div>
         </div>
     </div>
 </body>
@@ -209,7 +213,7 @@ if (mysqli_num_rows($result) > 0) {
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

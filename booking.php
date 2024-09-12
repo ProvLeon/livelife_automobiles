@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
+    require_once 'connection.php';
  include('session_customer.php');
+
+ $conn = Connect();
+
 if(!isset($_SESSION['login_customer'])){
     session_destroy();
     header("location: customerlogin.php");
 }
-?> 
+?>
 <title>Book Car </title>
 <head>
     <script type="text/javascript" src="assets/ajs/angular.min.js"> </script>
@@ -16,11 +20,11 @@ if(!isset($_SESSION['login_customer'])){
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/w3css/w3.css">
   <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>  
-  <script type="text/javascript" src="assets/js/custom.js"></script> 
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/js/custom.js"></script>
  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/clientpage.css" />
 </head>
-<body ng-app=""> 
+<body ng-app="">
 
 
       <!-- Navigation -->
@@ -38,7 +42,7 @@ if(!isset($_SESSION['login_customer'])){
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -64,7 +68,7 @@ if(!isset($_SESSION['login_customer'])){
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -118,7 +122,7 @@ if(!isset($_SESSION['login_customer'])){
         </div>
         <!-- /.container -->
     </nav>
-    
+
 <div class="container" style="margin-top: 65px;" >
     <div class="col-md-7" style="float: none; margin: 0 auto;">
       <div class="form-area">
@@ -147,7 +151,7 @@ if(!isset($_SESSION['login_customer'])){
           <!-- <div class="form-group"> -->
               <h5> Car:&nbsp;  <?php echo($car_name);?></h5>
          <!-- </div> -->
-         
+
           <!-- <div class="form-group"> -->
             <h5> Vehicle Number:&nbsp; <?php echo($car_nameplate);?></h5>
           <!-- </div>      -->
@@ -159,26 +163,26 @@ if(!isset($_SESSION['login_customer'])){
           <label><h5>End Date:</h5></label>
           <input type="date" name="rent_end_date" min="<?php echo($today);?>" required="">
         <!-- </div>      -->
-        
+
         <h5> Choose your car type:  &nbsp;
             <input onclick="reveal()" type="radio" name="radio" value="ac" ng-model="myVar"> AC &nbsp;
             <input onclick="reveal()" type="radio" name="radio" value="non_ac" ng-model="myVar"> Non-AC
-                
-        
-        <div ng-switch="myVar"> 
+
+
+        <div ng-switch="myVar">
         <div ng-switch-default>
                     <!-- <div class="form-group"> -->
-                <h5>Fare: <h5>    
+                <h5>Fare: <h5>
                 <!-- </div>    -->
                      </div>
                     <div ng-switch-when="ac">
                     <!-- <div class="form-group"> -->
-                <h5>Fare: <?php echo("₹" . $ac_price . "/km and ₹" . $ac_price_per_day . "/day");?><h5>    
+                <h5>Fare: <?php echo("₹" . $ac_price . "/km and ₹" . $ac_price_per_day . "/day");?><h5>
                 <!-- </div>    -->
                      </div>
                      <div ng-switch-when="non_ac">
                      <!-- <div class="form-group"> -->
-                <h5>Fare: <?php echo("₹" . $non_ac_price . "/km and ₹" . $non_ac_price_per_day . "/day");?><h5>    
+                <h5>Fare: <?php echo("₹" . $non_ac_price . "/km and ₹" . $non_ac_price_per_day . "/day");?><h5>
                 <!-- </div>   -->
                      </div>
         </div>
@@ -202,12 +206,12 @@ if(!isset($_SESSION['login_customer'])){
                                 $driver_gender = $row2["driver_gender"];
                                 $driver_phone = $row2["driver_phone"];
                     ?>
-  
+
 
                     <option value="<?php echo($driver_id); ?>"><?php echo($driver_name); ?>
-                   
 
-                    <?php }} 
+
+                    <?php }}
                     else{
                         ?>
                     Sorry! No Drivers are currently available, try again later...
@@ -217,7 +221,7 @@ if(!isset($_SESSION['login_customer'])){
                 </select>
                 <!-- </form> -->
                 <div ng-switch="myVar1">
-                
+
 
                 <?php
                         $sql3 = "SELECT * FROM driver d WHERE d.driver_availability = 'yes' AND d.client_username IN (SELECT cc.client_username FROM clientcars cc WHERE cc.car_id = '$car_id')";
@@ -240,11 +244,11 @@ if(!isset($_SESSION['login_customer'])){
                 <?php }} ?>
                 </div>
                 <input type="hidden" name="hidden_carid" value="<?php echo $car_id; ?>">
-                
-         
-           <input type="submit"name="submit" value="Book Now" class="btn btn-success pull-right">     
+
+
+           <input type="submit"name="submit" value="Book Now" class="btn btn-success pull-right">
         </form>
-        
+
       </div>
       <div class="col-md-12" style="float: none; margin: 0 auto; text-align: center;">
             <h6><strong>Kindly Note:</strong> You will be charged <span class="text-danger">₹200/-</span> for each day after the due date.</h6>
@@ -257,7 +261,7 @@ if(!isset($_SESSION['login_customer'])){
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 session_start();
+
 require 'connection.php';
 $conn = Connect();
+
 ?>
 <head>
 <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
@@ -25,13 +27,13 @@ $conn = Connect();
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -57,7 +59,7 @@ $conn = Connect();
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -111,8 +113,8 @@ $conn = Connect();
         </div>
         <!-- /.container -->
     </nav>
- 
-<?php $login_customer = $_SESSION['login_customer']; 
+
+<?php $login_customer = $_SESSION['login_customer'];
 
     $sql1 = "SELECT * FROM rentedcars rc, cars c
     WHERE rc.customer_username='$login_customer' AND c.car_id=rc.car_id AND rc.return_status='R'";
@@ -147,7 +149,7 @@ $conn = Connect();
 <td><?php echo $row["car_name"]; ?></td>
 <td><?php echo $row["rent_start_date"] ?></td>
 <td><?php echo $row["rent_end_date"]; ?></td>
-<td>&#8377; <?php 
+<td>&#8377; <?php
             if($row["charge_type"] == "days"){
                     echo ($row["fare"] . "/day");
                 } else {
@@ -164,7 +166,7 @@ $conn = Connect();
 </tr>
 <?php        } ?>
                 </table>
-                </div> 
+                </div>
         <?php } else {
             ?>
         <div class="container">
@@ -175,7 +177,7 @@ $conn = Connect();
     </div>
 
             <?php
-        } ?>   
+        } ?>
 
 </body>
 <footer class="site-footer">
@@ -183,7 +185,7 @@ $conn = Connect();
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

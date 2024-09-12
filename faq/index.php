@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/w3css/w3.css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <title>FAQ | Patna Car Rental</title>
+    <title>FAQ | LiveLife Automobiles</title>
 </head>
 
 <body>
@@ -32,8 +32,8 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                     </button>
-                <a class="navbar-brand page-scroll" href="/../Stribon Technologies/index.php">
-                   PATNA CAR RENTAL </a>
+                <a class="navbar-brand page-scroll" href="/../index.php">
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
@@ -100,16 +100,16 @@
                         <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="/../Stribon Technologies/index.php">Home</a>
+                                    <a href="/../index.php">Home</a>
                                 </li>
                                 <li>
-                                    <a href="/../Stribon Technologies/clientlogin.php">Client</a>
+                                    <a href="/../clientlogin.php">Client</a>
                                 </li>
                                 <li>
-                                    <a href="/../Stribon Technologies/customerlogin.php">Customer</a>
+                                    <a href="/../customerlogin.php">Customer</a>
                                 </li>
                                 <li>
-                                    <a href="faq/index.html"> FAQ </a>
+                                    <a href="index.php"> FAQ </a>
                                 </li>
                             </ul>
                         </div>

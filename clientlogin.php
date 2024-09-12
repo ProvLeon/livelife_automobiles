@@ -4,6 +4,10 @@ include('login_client.php'); // Includes Login Script
 if(isset($_SESSION['login_client'])){
     header("location: index.php"); //Redirecting
 }
+
+    if (!isset($error)) {
+        $error = '';
+    }
 ?>
 
     <!DOCTYPE html>
@@ -29,7 +33,7 @@ if(isset($_SESSION['login_client'])){
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                    LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
@@ -100,7 +104,7 @@ if(isset($_SESSION['login_client'])){
                                     <a href="customerlogin.php">Customer</a>
                                 </li>
                                 <li>
-                                    <a href="#"> FAQ </a>
+                                    <a href="/faq/index.php"> FAQ </a>
                                 </li>
                             </ul>
                         </div>
@@ -112,7 +116,7 @@ if(isset($_SESSION['login_client'])){
     </nav>
         <div class="container">
             <div class="jumbotron">
-                <h1>Welcome to Patna Car Rental </span>
+                <h1>Welcome to LiveLife Automobiles </span>
                 </h1>
                 <br>
                 <p>Kindly LOGIN to continue.</p>
@@ -174,7 +178,7 @@ if(isset($_SESSION['login_client'])){
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

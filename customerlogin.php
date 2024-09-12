@@ -101,7 +101,7 @@ header("location: index.php"); //Redirecting
                                     <a href="customerlogin.php">Customer</a>
                                 </li>
                                 <li>
-                                    <a href="#"> FAQ </a>
+                                    <a href="/faq/index.php"> FAQ </a>
                                 </li>
                             </ul>
                         </div>
@@ -170,16 +170,16 @@ header("location: index.php"); //Redirecting
                 </div>
             </div>
         </div>
-    </body>
     <footer class="site-footer">
         <div class="container">
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>
     </footer>
+    </body>
 
     </html>

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-<?php 
-session_start(); 
+<?php
+session_start();
+
 require 'connection.php';
 $conn = Connect();
+
 ?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patna Car Rental</title>
+    <title>LiveLife Automobiles</title>
     <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -20,7 +22,7 @@ $conn = Connect();
 </head>
 
 <body>
-    <?php 
+    <?php
     $name = $conn->real_escape_string($_POST['name']);
     $e_mail = $conn->real_escape_string($_POST['e_mail']);
     $message = $conn->real_escape_string($_POST['message']);
@@ -35,7 +37,7 @@ $conn = Connect();
     else { ?>
         <div class="container">
         <div class="jumbotron" style="text-align: center;">
-            Thank you for your feedback!    
+            Thank you for your feedback!
             <br><br>
             <a href="index.php" class="btn btn-default"> Go Back </a>
     </div>
@@ -48,7 +50,7 @@ $conn = Connect();
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

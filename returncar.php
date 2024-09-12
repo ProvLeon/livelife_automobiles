@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
-session_start(); 
+<?php
+session_start();
+
 require 'connection.php';
 $conn = Connect();
+
 ?>
 <head>
 <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
@@ -31,7 +33,7 @@ $conn = Connect();
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -57,7 +59,7 @@ $conn = Connect();
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -153,7 +155,7 @@ function dateDiff($start, $end) {
 
            <h5> End Date:&nbsp;  <?php echo($rent_end_date);?></h5>
 
-           <h5> Fare:&nbsp;  ₹<?php 
+           <h5> Fare:&nbsp;  ₹<?php
             if($charge_type == "days"){
                     echo ($fare . "/day");
                 } else {
@@ -175,11 +177,11 @@ function dateDiff($start, $end) {
           <?php } ?>
           <input type="hidden" name="hid_fare" value="<?php echo $fare; ?>">
 
-           <input type="submit" name="submit" value="submit" class="btn btn-success pull-right">    
+           <input type="submit" name="submit" value="submit" class="btn btn-success pull-right">
         </form>
       </div>
     </div>
-   
+
     </div>
 
 </body>
@@ -188,7 +190,7 @@ function dateDiff($start, $end) {
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>

@@ -3,11 +3,9 @@ session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 
 if (isset($_POST['submit'])) {
-if (empty($_POST['client_username']) || empty($_POST['client_password'])) {
-$error = "Username or Password is invalid";
-}
-else
-{
+    if (empty($_POST['client_username']) || empty($_POST['client_password'])) {
+    $error = "Username or Password is invalid";
+    } else {
 // Define $username and $password
 $client_username=$_POST['client_username'];
 $client_password=$_POST['client_password'];
