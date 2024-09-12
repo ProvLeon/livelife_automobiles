@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<?php 
-session_start(); 
+<?php
+session_start();
 require 'connection.php';
 $conn = Connect();
 ?>
@@ -29,13 +29,13 @@ $conn = Connect();
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -61,7 +61,7 @@ $conn = Connect();
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -121,7 +121,7 @@ $conn = Connect();
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <h1 class="brand-heading" style="color: white">PATNA CAR RENTAL</h1>
+                            <h1 class="brand-heading" style="color: white">LiveLife Automobiles</h1>
                             <p class="intro-text">
                                 Online car rental service
                             </p>
@@ -139,7 +139,7 @@ $conn = Connect();
         <h3 style="text-align:center;">Currently Available Cars</h3>
 <br>
         <section class="menu-content">
-            <?php   
+            <?php
             $sql1 = "SELECT * FROM cars WHERE car_availability='yes'";
             $result1 = mysqli_query($conn,$sql1);
 
@@ -152,19 +152,19 @@ $conn = Connect();
                     $non_ac_price = $row1["non_ac_price"];
                     $non_ac_price_per_day = $row1["non_ac_price_per_day"];
                     $car_img = $row1["car_img"];
-               
+
                     ?>
             <a href="booking.php?id=<?php echo($car_id) ?>">
             <div class="sub-menu">
-            
+
 
             <img class="card-img-top" src="<?php echo $car_img; ?>" alt="Card image cap">
             <h5> <?php echo $car_name; ?> </h5>
-            <h6> AC Fare: <?php echo ("₹" . $ac_price . "/km & ₹" . $ac_price_per_day . "/day"); ?></h6>
-            <h6> Non-AC Fare: <?php echo ("₹" . $non_ac_price . "/km & ₹" . $non_ac_price_per_day . "/day"); ?></h6>
+            <h6> AC Fare: <?php echo ("GH₵" . $ac_price . "/km & GH₵" . $ac_price_per_day . "/day"); ?></h6>
+            <h6> Non-AC Fare: <?php echo ("GH₵" . $non_ac_price . "/km & GH₵" . $non_ac_price_per_day . "/day"); ?></h6>
 
-            
-            </div> 
+
+            </div>
             </a>
             <?php }}
             else {
@@ -172,9 +172,9 @@ $conn = Connect();
 <h1> No cars available :( </h1>
                 <?php
             }
-            ?>                                   
+            ?>
         </section>
-                    
+
     </div>
 
     <div class="bgimg-2">
@@ -200,11 +200,11 @@ $conn = Connect();
             </div>
             <div class="w3-col m8 w3-panel">
                 <div class="w3-large w3-margin-bottom">
-                    <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Patna, India<br>
-                    <i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: +91 8132044768<br>
-                    <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: aminnikhil073@gmail.com<br>
+                    <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> LiveLife Automobiles, Ghana<br>
+                    <i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: +233 550 144 927<br>
+                    <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: delatay101@gmail.com<br>
                 </div>
-                <p>New to Patna ? Drop Your Details and Leave it on us We'll Revert</p>
+                <p>New to LiveLife? Drop Your Details and Leave it on us We'll Revert</p>
                 <form action="action_page.php" method="POST">
                     <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
                         <div class="w3-half">
@@ -227,7 +227,7 @@ $conn = Connect();
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
                 </div>
                 <div class="col-sm-6 social-icons">
                     <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
@@ -239,8 +239,9 @@ $conn = Connect();
         </div>
     </footer>
     <script>
-        function myMap() {
-            myCenter = new google.maps.LatLng(25.614744, 85.128489);
+    function myMap() {
+        try {
+            myCenter = new google.maps.LatLng(5.6037, -0.1870); // Coordinates for Accra, Ghana
             var mapOptions = {
                 center: myCenter,
                 zoom: 12,
@@ -254,7 +255,11 @@ $conn = Connect();
                 position: myCenter,
             });
             marker.setMap(map);
+        } catch (error) {
+            console.error("Error initializing Google Map:", error);
+            document.getElementById("googleMap").innerHTML = "Failed to load Google Maps. Please try again later.";
         }
+    }
     </script>
     <script>
         function sendGaEvent(category, action, label) {
@@ -266,7 +271,7 @@ $conn = Connect();
             });
         };
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCuoe93lQkgRaC7FB8fMOr_g1dmMRwKng&callback=myMap" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=myMap" async defer></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- Plugin JavaScript -->

@@ -114,20 +114,22 @@ a:hover {
 
 @media(min-width:768px) {
     .navbar-custom {
-        padding: 20px 0;
+        padding: 10px 0;
         border-bottom: 0;
         font-size: 13px;
-        background: 0 0;
+        background: '#ffffff';
         -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
         transition: background .5s ease-in-out, padding .5s ease-in-out;
     }
+
     .navbar-custom.top-nav-collapse {
         padding: 0;
         border-bottom: 1px solid rgba(255, 255, 255, .3);
         color: #333;
         background: #fff;
     }
+
     .navbar-custom.top-nav-collapse a {
         color: #333;
         display: inline-block;
@@ -166,6 +168,7 @@ a:hover {
         height: 100%;
         padding: 0;
     }
+
     .intro .intro-body .brand-heading {
         font-size: 60px;
         margin-top: 90px;
@@ -175,6 +178,7 @@ a:hover {
         display: inline-block;
         padding: 10px 0;
     }
+
     .intro .intro-body .intro-text {
         font-size: 20px;
         font-weight: 300;
@@ -188,7 +192,7 @@ a:hover {
     line-height: 33px;
     text-align: center;
     border: 2px solid #fff;
-    border-radius: 100%!important;
+    border-radius: 100% !important;
     font-size: 20px;
     color: #fff;
     background: 0 0;
@@ -227,10 +231,12 @@ a:hover {
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+
     50% {
         -webkit-transform: scale(1.2);
         transform: scale(1.2);
     }
+
     100% {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -242,10 +248,12 @@ a:hover {
         -moz-transform: scale(1);
         transform: scale(1);
     }
+
     50% {
         -moz-transform: scale(1.2);
         transform: scale(1.2);
     }
+
     100% {
         -moz-transform: scale(1);
         transform: scale(1);
@@ -263,12 +271,12 @@ a:hover {
 }
 
 .bgimg-1 {
-    background-image: url("../../assets/img/lets.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/img/lets.jpg");
     min-height: 100%;
 }
 
 .bgimg-2 {
-    background-image: url("../../assets/img/bg-2.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/img/bg-2.jpg");
     min-height: 400px;
 }
 
@@ -397,7 +405,7 @@ h3 {
     background: #fff;
     box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
     width: 270px;
-    height: 290px;
+    height: 340px;
     padding: 1.5rem;
     text-align: center;
 }
@@ -407,7 +415,7 @@ h3 {
 }
 
 .card-img-top {
-    max-height: 150px;
+    max-height: 200px;
     max-width: 230px;
     min-height: 150px;
     min-width: 230px;
@@ -419,6 +427,7 @@ h3 {
         width: 100%;
         height: 100%;
     }
+
     .box {
         width: 100%;
     }
@@ -430,11 +439,13 @@ h3 {
         -webkit-transform: translateY(-20px);
         transform: translateY(-20px)
     }
+
     50% {
         opacity: 1;
         -webkit-transform: translateY(-10px);
         transform: translateY(-10px)
     }
+
     100% {
         opacity: 0;
         -webkit-transform: translateY(0);
@@ -449,12 +460,14 @@ h3 {
         -ms-transform: translateY(-20px);
         transform: translateY(-20px)
     }
+
     50% {
         opacity: 1;
         -webkit-transform: translateY(-10px);
         -ms-transform: translateY(-10px);
         transform: translateY(-10px)
     }
+
     100% {
         opacity: 0;
         -webkit-transform: translateY(0);

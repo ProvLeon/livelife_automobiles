@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 
-<?php 
+<?php
+
+require_once __DIR__ . '/connection.php';
+
+$conn = Connect();
+
  include('session_customer.php');
 if(!isset($_SESSION['login_customer'])){
     session_destroy();
@@ -42,7 +47,7 @@ if(!isset($_SESSION['login_customer'])){
         $diff = $end_ts - $start_ts;
         return round($diff / 86400);
     }
-    
+
     $err_date = dateDiff("$rent_start_date", "$rent_end_date");
 
     $sql0 = "SELECT * FROM cars WHERE car_id = '$car_id'";
@@ -64,8 +69,8 @@ if(!isset($_SESSION['login_customer'])){
             }
         }
     }
-    if($err_date >= 0) { 
-    $sql1 = "INSERT into rentedcars(customer_username,car_id,driver_id,booking_date,rent_start_date,rent_end_date,fare,charge_type,return_status) 
+    if($err_date >= 0) {
+    $sql1 = "INSERT into rentedcars(customer_username,car_id,driver_id,booking_date,rent_start_date,rent_end_date,fare,charge_type,return_status)
     VALUES('" . $customer_username . "','" . $car_id . "','" . $driver_id . "','" . date("Y-m-d") ."','" . $rent_start_date ."','" . $rent_end_date . "','" . $fare . "','" . $charge_type . "','" . $return_status . "')";
     $result1 = $conn->query($sql1);
 
@@ -112,7 +117,7 @@ if(!isset($_SESSION['login_customer'])){
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -138,7 +143,7 @@ if(!isset($_SESSION['login_customer'])){
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -201,7 +206,7 @@ if(!isset($_SESSION['login_customer'])){
 
     <h2 class="text-center"> Thank you for visiting Patna Car Rental! We wish you have a safe ride. </h2>
 
- 
+
 
     <h3 class="text-center"> <strong>Your Order Number:</strong> <span style="color: blue;"><?php echo "$id"; ?></span> </h3>
 
@@ -222,8 +227,8 @@ if(!isset($_SESSION['login_customer'])){
                 <br>
                 <h4> <strong>Vehicle Number:</strong> <?php echo $car_nameplate; ?></h4>
                 <br>
-                
-                <?php     
+
+                <?php
                 if($charge_type == "days"){
                 ?>
                      <h4> <strong>Fare:</strong> ₹<?php echo $fare; ?>/day</h4>
@@ -274,7 +279,7 @@ if(!isset($_SESSION['login_customer'])){
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -300,7 +305,7 @@ if(!isset($_SESSION['login_customer'])){
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
