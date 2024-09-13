@@ -1,3 +1,7 @@
+<?php
+require_once('../config.php');
+?>
+
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -136,7 +140,7 @@
                 <li>
                     <a class="cd-faq-trigger" href="#0">How do I pay for my Rental?</a>
                     <div class="cd-faq-content">
-                        <p>Patna Car Rentals gladly accepts Mastercard and Visa. Personal Checks are also accepted providing you purchase CDW and Theft Protection on your rental.
+                        <p>LiveLife Automobiles gladly accepts Mastercard and Visa. Personal Checks are also accepted providing you purchase CDW and Theft Protection on your rental.
                          At this time we would like to advise that personal checks are not accepted locally.</p>
                     </div>
                     <!-- cd-faq-content -->
@@ -145,7 +149,7 @@
                 <li>
                     <a class="cd-faq-trigger" href="#0">What if i find a better rate for a rental car?</a>
                     <div class="cd-faq-content">
-                        <p>One of the many great things about Patna Car Rental is our rental rates and services are guaranteed to be the very best in the industry. If you come across a lower price from a competitor and the rate is on a comparable vehicle including the same terms, locations, and rental car fees we will be glad to beat the price for you. Please complete our Guaranteed Best Rate form if you have found a better rate with one of our competitors.</div>
+                        <p>One of the many great things about LiveLife Automobiles is our rental rates and services are guaranteed to be the very best in the industry. If you come across a lower price from a competitor and the rate is on a comparable vehicle including the same terms, locations, and rental car fees we will be glad to beat the price for you. Please complete our Guaranteed Best Rate form if you have found a better rate with one of our competitors.</div>
                     <!-- cd-faq-content -->
                 </li>
 
@@ -160,7 +164,7 @@
                 <li>
                     <a class="cd-faq-trigger" href="#0">Is there a fee if i return the car after the due date?</a>
                     <div class="cd-faq-content">
-                        <p>Yes, we charge ₹200/- day after the due date.</p>
+                        <p>Yes, we charge <?php echo CURRENCY; ?> 200/- day after the due date.</p>
                     </div>
                     <!-- cd-faq-content -->
                 </li>
@@ -189,7 +193,7 @@
                 <li>
                     <a class="cd-faq-trigger" href="#0">How do I login?</a>
                     <div class="cd-faq-content">
-                        <p>Once you sign-up, we will re direct you to the log in screen. When you are logged in, you will see a small bar in the upper right corner of the screen welcoming to you our site. If you already have set up an account but have logged out, you can either click on the 'Log-In' button on our menu bar which takes you to our log-in page or, if you are on our home page, you can use the log-in area on it.</p>
+                        <p>Once you sign-up, we will redirect you to the log in screen. When you are logged in, you will see a small bar in the upper right corner of the screen welcoming to you our site. If you already have set up an account but have logged out, you can either click on the 'Log-In' button on our menu bar which takes you to our log-in page or, if you are on our home page, you can use the log-in area on it.</p>
                     </div>
                     <!-- cd-faq-content -->
                 </li>
@@ -210,7 +214,7 @@
                 <li>
                     <a class="cd-faq-trigger" href="#0">Is my credit card information stored in my account?</a>
                     <div class="cd-faq-content">
-                        <p>No.We do not store any credit card information in your account.</p>
+                        <p>No, We do not store any credit card information in your account.</p>
                     </div>
                     <!-- cd-faq-content -->
                 </li>
@@ -232,7 +236,7 @@
                 <li>
                     <a class="cd-faq-trigger" href="#0">How can i pay for my chauffeur services?</a>
                     <div class="cd-faq-content">
-                        <p>Patna Car Rental gladly accepts MasterCard, Visa, and checks. We also PayTm.</p>
+                        <p>LiveLive Automobiles gladly accepts MasterCard, Visa, and checks. We also PayTm.</p>
                     </div>
                     <!-- cd-faq-content -->
                 </li>

@@ -10,7 +10,7 @@ $conn = Connect();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patna Car Rental</title>
+    <title>LiveLife Automobiles</title>
     <link rel="shortcut icon" type="image/png" href="assets/img/P.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -162,8 +162,8 @@ $conn = Connect();
 
             <img class="card-img-top" src="<?php echo $car_img; ?>" alt="Card image cap">
             <h5> <?php echo $car_name; ?> </h5>
-            <h6> AC Fare: <?php echo ("GH₵" . $ac_price . "/km & GH₵" . $ac_price_per_day . "/day"); ?></h6>
-            <h6> Non-AC Fare: <?php echo ("GH₵" . $non_ac_price . "/km & GH₵" . $non_ac_price_per_day . "/day"); ?></h6>
+            <h6> AC Fare: <?php echo (CURRENCY . $ac_price . "/km & " . CURRENCY . $ac_price_per_day . "/day"); ?></h6>
+            <h6> Non-AC Fare: <?php echo (CURRENCY . $non_ac_price . "/km & ". CURRENCY . $non_ac_price_per_day . "/day"); ?></h6>
 
 
             </div>
