@@ -47,22 +47,37 @@ CREATE TABLE `cars` (
 -- Dumping data for table `cars`
 --
 
-INSERT INTO `cars` (`car_id`, `car_name`, `car_nameplate`, `car_img`, `ac_price`, `non_ac_price`, `ac_price_per_day`, `non_ac_price_per_day`, `car_availability`) VALUES
-(1, 'Wagon R', 'KA19MG9910', 'assets/img/cars/wagon-r.png', 10, 8, 2000, 1600, 'yes'),
-(2, 'Alto 800', 'MH20GH9452', 'assets/img/cars/alto-800.png', 9, 7, 1800, 1400, 'yes'),
-(3, 'Innova', 'GA16NM9125', 'assets/img/cars/Innova.png', 13, 11, 2600, 2200, 'yes'),
-(4, 'Ford Figo', 'GJ17HZ4001', 'assets/img/cars/figo.png', 11, 9, 2200, 1800, 'yes'),
-(6, 'Mahindra Bolero', 'KL18MJ8472', 'assets/img/cars/bolero.jpg', 15, 13, 3000, 2600, 'yes'),
-(7, 'Honda Amaze', 'PJ16YX8820', 'assets/img/cars/amaze.png', 14, 12, 2800, 2400, 'no'),
-(8, 'Tata Nexon', 'WB15EX5005', 'assets/img/cars/nexon.jpg', 12, 10, 2400, 2000, 'yes'),
-(9, 'Swift Dzire', 'BR01HX8001', 'assets/img/cars/dzire.png', 10, 8, 2000, 1600, 'yes'),
-(10, 'Suzuki Ciaz', 'TN17MS1997', 'assets/img/cars/Suzuki_Ciaz_2017.jpg', 12, 10, 2400, 2000, 'yes'),
-(11, 'Mahindra XUV 500', 'KA12EX1883', 'assets/img/cars/Mahindra XUV.jpg', 15, 13, 3000, 2600, 'yes'),
-(12, 'Toyota Fortuner', 'GA08MX1997', 'assets/img/cars/Fortuner.png', 16, 14, 3200, 2800, 'yes'),
-(13, 'Suzuki Ertiga', 'MH02DC1997', 'assets/img/cars/maruti-suzuki-ertiga.jpg', 14, 12, 2800, 2400, 'yes');
+-- INSERT INTO `cars` (`car_id`, `car_name`, `car_nameplate`, `car_img`, `ac_price`, `non_ac_price`, `ac_price_per_day`, `non_ac_price_per_day`, `car_availability`) VALUES
+-- (1, 'Wagon R', 'KA19MG9910', 'assets/img/cars/wagon-r.png', 10, 8, 2000, 1600, 'yes'),
+-- (2, 'Alto 800', 'MH20GH9452', 'assets/img/cars/alto-800.png', 9, 7, 1800, 1400, 'yes'),
+-- (3, 'Innova', 'GA16NM9125', 'assets/img/cars/Innova.png', 13, 11, 2600, 2200, 'yes'),
+-- (4, 'Ford Figo', 'GJ17HZ4001', 'assets/img/cars/figo.png', 11, 9, 2200, 1800, 'yes'),
+-- (6, 'Mahindra Bolero', 'KL18MJ8472', 'assets/img/cars/bolero.jpg', 15, 13, 3000, 2600, 'yes'),
+-- (7, 'Honda Amaze', 'PJ16YX8820', 'assets/img/cars/amaze.png', 14, 12, 2800, 2400, 'no'),
+-- (8, 'Tata Nexon', 'WB15EX5005', 'assets/img/cars/nexon.jpg', 12, 10, 2400, 2000, 'yes'),
+-- (9, 'Swift Dzire', 'BR01HX8001', 'assets/img/cars/dzire.png', 10, 8, 2000, 1600, 'yes'),
+-- (10, 'Suzuki Ciaz', 'TN17MS1997', 'assets/img/cars/Suzuki_Ciaz_2017.jpg', 12, 10, 2400, 2000, 'yes'),
+-- (11, 'Mahindra XUV 500', 'KA12EX1883', 'assets/img/cars/Mahindra XUV.jpg', 15, 13, 3000, 2600, 'yes'),
+-- (12, 'Toyota Fortuner', 'GA08MX1997', 'assets/img/cars/Fortuner.png', 16, 14, 3200, 2800, 'yes'),
+-- (13, 'Suzuki Ertiga', 'MH02DC1997', 'assets/img/cars/maruti-suzuki-ertiga.jpg', 14, 12, 2800, 2400, 'yes');
 
 -- --------------------------------------------------------
+-- Insert data into cars table first
+INSERT INTO `cars` (`car_id`, `car_name`, `car_nameplate`, `car_img`, `ac_price`, `non_ac_price`, `ac_price_per_day`, `non_ac_price_per_day`, `car_availability`) VALUES
+(1, 'AMG E53', 'KA19MG9910', 'assets/img/cars1/AMG-E53.jpeg', 10, 8, 2000, 1600, 'yes'),
+(2, 'AMG GLE 53', 'MH20GH9452', 'assets/img/cars1/AMG-GLE-53.jpeg', 9, 7, 1800, 1400, 'yes'),
+(3, 'Benz G Class', 'GA16NM9125', 'assets/img/cars1/Benz-G-Class.jpeg', 13, 11, 2600, 2200, 'yes'),
+(4, 'Benz W205', 'GJ17HZ4001', 'assets/img/cars1/Benz-w205.jpeg', 11, 9, 2200, 1800, 'yes'),
+(6, 'BMW M4', 'KL18MJ8472', 'assets/img/cars1/BMW-M4.jpeg', 15, 13, 3000, 2600, 'yes'),
+(7, 'BMW M8', 'PJ16YX8820', 'assets/img/cars1/BMW-M8.jpeg', 14, 12, 2800, 2400, 'no'),
+(8, 'Escalade', 'WB15EX5005', 'assets/img/cars1/Escalade.jpeg', 12, 10, 2400, 2000, 'yes'),
+(9, 'Honda Civic Hatchback', 'BR01HX8001', 'assets/img/cars1/Honda-Civic-Hatchback.jpeg', 10, 8, 2000, 1600, 'yes'),
+(10, 'Lexux RX 350', 'TN17MS1997', 'assets/img/cars1/Lexus-RX-350.jpeg', 12, 10, 2400, 2000, 'yes'),
+(11, 'Toyota Camry 70', 'KA12EX1883', 'assets/img/cars1/Toyota-Camry-70.jpeg', 15, 13, 3000, 2600, 'yes'),
+(12, 'Toyota Fortuner G', 'KQA12EX1883', 'assets/img/cars1/Toyota-Fortuner-G.jpeg', 15, 13, 3000, 2600, 'yes');
+-- (13, 'Additional Car', 'XY12ZZ9999', 'assets/img/cars1/additional-car.jpeg', 16, 14, 3200, 2800, 'yes');
 
+-- ----------------------------------------------
 --
 -- Table structure for table `clientcars`
 --
@@ -76,6 +91,7 @@ CREATE TABLE `clientcars` (
 -- Dumping data for table `clientcars`
 --
 
+-- Then insert data into clientcars
 INSERT INTO `clientcars` (`car_id`, `client_username`) VALUES
 (1, 'nikhil'),
 (2, 'nikhil'),
@@ -87,8 +103,8 @@ INSERT INTO `clientcars` (`car_id`, `client_username`) VALUES
 (7, 'roshan'),
 (8, 'roshan'),
 (9, 'roshan'),
-(12, 'roshan'),
-(13, 'roshan');
+(12, 'roshan');
+-- (13, 'roshan');
 
 -- --------------------------------------------------------
 

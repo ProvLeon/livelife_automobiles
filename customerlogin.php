@@ -30,7 +30,7 @@ header("location: index.php"); //Redirecting
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
@@ -114,7 +114,7 @@ header("location: index.php"); //Redirecting
 
         <div class="container">
             <div class="jumbotron">
-                <h1>Welcome to Patna Car Rental </span>
+                <h1>Welcome to LiveLife Automobiles </span>
                 </h1>
                 <br>
                 <p>Kindly LOGIN to continue.</p>
