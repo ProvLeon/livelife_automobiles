@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <title> Client Signup | Patna Car Rental </title>
+    <title> Client Signup | LiveLife Automobiles </title>
     <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
 </head>
 
@@ -45,13 +45,13 @@
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -77,7 +77,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -170,7 +170,7 @@ $conn->close();
         <hr>
         <div class="row">
             <div class="col-sm-6">
-                <h5>© 2018 Patna Car Rental</h5>
+                <h5>© 2018 LiveLife Automobiles</h5>
             </div>
         </div>
     </div>

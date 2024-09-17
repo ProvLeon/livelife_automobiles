@@ -27,7 +27,7 @@ $conn = Connect();
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 

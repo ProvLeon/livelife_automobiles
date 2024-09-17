@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <title> customer Signup | Patna Car Rental </title>
+    <title> customer Signup | LiveLife Automobiles </title>
   </head>
   <?php session_start(); ?>
   <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
@@ -23,13 +23,13 @@
                     <i class="fa fa-bars"></i>
                     </button>
                 <a class="navbar-brand page-scroll" href="index.php">
-                   PATNA CAR RENTAL </a>
+                   LiveLife Automobiles </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
                 if(isset($_SESSION['login_client'])){
-            ?> 
+            ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -55,7 +55,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <?php
                 }
                 else if (isset($_SESSION['login_customer'])){
@@ -112,7 +112,7 @@ $conn = Connect();
 
 function GetImageExtension($imagetype) {
     if(empty($imagetype)) return false;
-    
+
     switch($imagetype) {
         case 'assets/img/cars/bmp': return '.bmp';
         case 'assets/img/cars/gif': return '.gif';
@@ -150,8 +150,8 @@ if (!empty($_FILES["uploadedimage"]["name"])) {
         $query = "INSERT into cars(car_name,car_nameplate,car_img,ac_price,non_ac_price,ac_price_per_day,non_ac_price_per_day,car_availability) VALUES('" . $car_name . "','" . $car_nameplate . "','".$target_path."','" . $ac_price . "','" . $non_ac_price . "','" . $ac_price_per_day . "','" . $non_ac_price_per_day . "','" . $car_availability ."')";
         $success = $conn->query($query);
 
-        
-    } 
+
+    }
 
 }
 
@@ -163,7 +163,7 @@ $query1 = "SELECT car_id from cars where car_nameplate = '$car_nameplate'";
 $result = mysqli_query($conn, $query1);
 $rs = mysqli_fetch_array($result, MYSQLI_BOTH);
 $car_id = $rs['car_id'];
- 
+
 
 $query2 = "INSERT into clientcars(car_id,client_username) values('" . $car_id ."','" . $_SESSION['login_client'] . "')";
 $success2 = $conn->query($query2);
@@ -176,10 +176,10 @@ if (!$success){ ?>
         <br><br>
         <a href="entercar.php" class="btn btn-default"> Go Back </a>
 </div>
-<?php	
+<?php
 }
 else {
-    header("location: entercar.php"); //Redirecting 
+    header("location: entercar.php"); //Redirecting
 }
 
 $conn->close();
@@ -192,7 +192,7 @@ $conn->close();
             <hr>
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>© 2018 Patna Car Rental</h5>
+                    <h5>© 2018 LiveLife Automobiles</h5>
                 </div>
             </div>
         </div>
