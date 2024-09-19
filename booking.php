@@ -251,7 +251,7 @@ if(!isset($_SESSION['login_customer'])){
 
       </div>
       <div class="col-md-12" style="float: none; margin: 0 auto; text-align: center;">
-            <h6><strong>Kindly Note:</strong> You will be charged <span class="text-danger">₹200/-</span> for each day after the due date.</h6>
+            <h6><strong>Kindly Note:</strong> You will be charged <span class="text-danger"><?php echo CURRENCY; ?>200/-</span> for each day after the due date.</h6>
         </div>
     </div>
 

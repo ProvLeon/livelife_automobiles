@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 ?>
@@ -73,7 +73,7 @@ $conn = Connect();
                         <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
                     </li>
                     <ul class="nav navbar-nav">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Garagge <span class="caret"></span> </a>
+            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> garage <span class="caret"></span> </a>
                 <ul class="dropdown-menu">
               <li> <a href="returncar.php">Return Now</a></li>
               <li> <a href="mybookings.php"> My Bookings</a></li>

@@ -1,6 +1,6 @@
 <?php
 // mysqli_connect() function opens a new connection to the MySQL server.
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 session_start();// Starting Session

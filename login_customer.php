@@ -12,7 +12,7 @@ else
 $customer_username=$_POST['customer_username'];
 $customer_password=$_POST['customer_password'];
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 // SQL query to fetch information of registerd users and finds user match.

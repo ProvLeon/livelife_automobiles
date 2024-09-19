@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 ?>
@@ -150,7 +150,7 @@ $conn = Connect();
 <td><?php echo $row["rent_start_date"] ?></td>
 <td><?php echo $row["rent_end_date"]; ?></td>
 <td><?php echo $row["distance"]; ?></td>
-<td>&#8377; <?php echo $row["total_amount"]; ?></td>
+<td> <?php echo CURRENCY; echo $row["total_amount"]; ?></td>
 </tr>
 <?php        } ?>
                 </table>

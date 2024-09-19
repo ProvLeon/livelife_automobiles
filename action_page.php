@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 ?>

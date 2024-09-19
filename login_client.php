@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
 $client_username=$_POST['client_username'];
 $client_password=$_POST['client_password'];
 // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 // SQL query to fetch information of registerd users and finds user match.

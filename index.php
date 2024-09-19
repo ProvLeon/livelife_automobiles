@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-require 'connection.php';
+require_once 'connection.php';
 $conn = Connect();
 
 ?>
@@ -19,6 +19,59 @@ $conn = Connect();
     <link rel="stylesheet" href="assets/w3css/w3.css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <style>
+        .menu-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .car-card {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .car-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .car-info {
+            padding: 15px;
+        }
+        .car-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .car-price {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .book-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .book-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -77,7 +130,7 @@ $conn = Connect();
                         <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
                     </li>
                     <ul class="nav navbar-nav">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Garagge <span class="caret"></span> </a>
+            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> garage <span class="caret"></span> </a>
                 <ul class="dropdown-menu">
               <li> <a href="prereturncar.php">Return Now</a></li>
               <li> <a href="mybookings.php"> My Bookings</a></li>
@@ -137,9 +190,10 @@ $conn = Connect();
         </header>
     </div>
 
-    <div id="sec2" style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+    <!-- Replace the existing car listing section with this -->
+    <div id="sec2" style="color: #777;background-color:white;text-align:center;padding:50px 80px;">
         <h3 style="text-align:center;">Currently Available Cars</h3>
-<br>
+        <br>
         <section class="menu-content">
             <?php
             $sql1 = "SELECT * FROM cars WHERE car_availability='yes'";
@@ -154,29 +208,27 @@ $conn = Connect();
                     $non_ac_price = $row1["non_ac_price"];
                     $non_ac_price_per_day = $row1["non_ac_price_per_day"];
                     $car_img = $row1["car_img"];
-
-                    ?>
-            <a href="booking.php?id=<?php echo($car_id) ?>">
-            <div class="sub-menu">
-
-
-            <img class="card-img-top" src="<?php echo $car_img; ?>" alt="Card image cap">
-            <h5> <?php echo $car_name; ?> </h5>
-            <h6> AC Fare: <?php echo (CURRENCY . $ac_price . "/km & " . CURRENCY . $ac_price_per_day . "/day"); ?></h6>
-            <h6> Non-AC Fare: <?php echo (CURRENCY . $non_ac_price . "/km & ". CURRENCY . $non_ac_price_per_day . "/day"); ?></h6>
-
-
+            ?>
+            <div class="car-card">
+                <img class="car-img" src="<?php echo $car_img; ?>" alt="<?php echo $car_name; ?>" loading="lazy">
+                <div class="car-info">
+                    <div class="car-name"><?php echo $car_name; ?></div>
+                    <div class="car-price">
+                        <p>AC: <?php echo CURRENCY . $ac_price . "/km & " . CURRENCY . $ac_price_per_day . "/day"; ?></p>
+                        <p>Non-AC: <?php echo CURRENCY . $non_ac_price . "/km & ". CURRENCY . $non_ac_price_per_day . "/day"; ?></p>
+                    </div>
+                    <a href="booking.php?id=<?php echo $car_id; ?>" class="book-btn">Book Now</a>
+                </div>
             </div>
-            </a>
-            <?php }}
-            else {
-                ?>
-<h1> No cars available :( </h1>
-                <?php
+            <?php
+                }
+            } else {
+            ?>
+            <h1>No cars available at the moment</h1>
+            <?php
             }
             ?>
         </section>
-
     </div>
 
     <div class="bgimg-2">
@@ -243,7 +295,7 @@ $conn = Connect();
     <script>
     function myMap() {
         try {
-            myCenter = new google.maps.LatLng(5.6037, -0.1870); // Coordinates for Accra, Ghana
+            myCenter = new google.maps.LatLng(5.6037, -0.1870);
             var mapOptions = {
                 center: myCenter,
                 zoom: 12,

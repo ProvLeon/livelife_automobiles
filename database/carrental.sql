@@ -7,6 +7,8 @@
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
+DROP DATABASE IF EXISTS `carrental`;
+
 CREATE DATABASE IF NOT EXISTS `carrental` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `carrental`;
 
@@ -114,9 +116,9 @@ INSERT INTO `clientcars` (`car_id`, `client_username`) VALUES
 
 CREATE TABLE `clients` (
   `client_username` varchar(50) NOT NULL,
-  `client_name` varchar(50) NOT NULL,
+  `client_name` varchar(255) NOT NULL,
   `client_phone` varchar(15) NOT NULL,
-  `client_email` varchar(25) NOT NULL,
+  `client_email` varchar(255) NOT NULL,
   `client_address` varchar(50) CHARACTER SET utf8 COLLATE utf8_estonian_ci NOT NULL,
   `client_password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -137,9 +139,9 @@ INSERT INTO `clients` (`client_username`, `client_name`, `client_phone`, `client
 
 CREATE TABLE `customers` (
   `customer_username` varchar(50) NOT NULL,
-  `customer_name` varchar(50) NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
   `customer_phone` varchar(15) NOT NULL,
-  `customer_email` varchar(25) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
   `customer_address` varchar(50) NOT NULL,
   `customer_password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -160,7 +162,7 @@ INSERT INTO `customers` (`customer_username`, `customer_name`, `customer_phone`,
 
 CREATE TABLE `driver` (
   `driver_id` int(20) NOT NULL,
-  `driver_name` varchar(50) NOT NULL,
+  `driver_name` varchar(255) NOT NULL,
   `dl_number` varchar(50) NOT NULL,
   `driver_phone` varchar(15) NOT NULL,
   `driver_address` varchar(50) NOT NULL,
@@ -189,9 +191,9 @@ INSERT INTO `driver` (`driver_id`, `driver_name`, `dl_number`, `driver_phone`, `
 --
 
 CREATE TABLE `feedback` (
-  `name` varchar(20) NOT NULL,
-  `e_mail` varchar(30) NOT NULL,
-  `message` varchar(150) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `e_mail` varchar(255) NOT NULL,
+  `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
