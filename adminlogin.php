@@ -116,7 +116,7 @@ if(isset($_SESSION['login_client'])){
     </nav>
         <div class="container">
             <div class="jumbotron">
-                <h1>Welcome to LiveLife Automobiles </span>
+                <h1>Welcome to LiveLife Automobiles
                     <span>(Admin)</span></h1>
                 <br>
                 <p>Kindly LOGIN to continue.</p>

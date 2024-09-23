@@ -100,7 +100,7 @@
     </nav>
     <div class="container">
         <div class="jumbotron">
-            <h1>Welcome to LiveLife Automobiles</h1>
+            <h1>Welcome to LiveLife Automobiles <span>(Admin)</span></h1>
             <br>
             <p>Get started by creating your account</p>
         </div>
