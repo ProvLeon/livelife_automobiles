@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <title> Client Signup | LiveLife Automobiles </title>
+    <title> Admin Signup | LiveLife Automobiles </title>
     <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
 </head>
 
@@ -115,7 +115,7 @@
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="clientlogin.php">Client</a>
+                        <a href="adminlogin.php">Admin</a>
                     </li>
                     <li>
                         <a href="customerlogin.php">Customer</a>
@@ -160,7 +160,7 @@ $conn->close();
 	<div class="jumbotron" style="text-align: center;">
 		<h2> <?php echo "Welcome $client_name!" ?> </h2>
 		<h1>Your account has been created.</h1>
-		<p>Login Now from <a href="clientlogin.php">HERE</a></p>
+		<p>Login Now from <a href="adminlogin.php">HERE</a></p>
 	</div>
 </div>
 

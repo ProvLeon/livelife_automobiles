@@ -181,7 +181,7 @@ if(!isset($_SESSION['login_customer'])){
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="clientlogin.php">Client</a>
+                        <a href="adminlogin.php">Admin</a>
                     </li>
                     <li>
                         <a href="customerlogin.php">Customer</a>
@@ -343,7 +343,7 @@ if(!isset($_SESSION['login_customer'])){
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="clientlogin.php">Client</a>
+                        <a href="adminlogin.php">Client</a>
                     </li>
                     <li>
                         <a href="customerlogin.php">Customer</a>

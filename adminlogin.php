@@ -22,7 +22,7 @@ if(isset($_SESSION['login_client'])){
     <link rel="stylesheet" href="assets/w3css/w3.css">
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="assets/css/clientlogin.css">
+    <link rel="stylesheet" href="assets/css/adminlogin.css">
 </head>
     <body>
            <!-- Navigation -->
@@ -98,7 +98,7 @@ if(isset($_SESSION['login_client'])){
                                     <a href="index.php">Home</a>
                                 </li>
                                 <li>
-                                    <a href="clientlogin.php">Client</a>
+                                    <a href="adminlogin.php">Admin</a>
                                 </li>
                                 <li>
                                     <a href="customerlogin.php">Customer</a>
@@ -117,7 +117,7 @@ if(isset($_SESSION['login_client'])){
         <div class="container">
             <div class="jumbotron">
                 <h1>Welcome to LiveLife Automobiles </span>
-                </h1>
+                    <span>(Admin)</span></h1>
                 <br>
                 <p>Kindly LOGIN to continue.</p>
             </div>
@@ -166,7 +166,7 @@ if(isset($_SESSION['login_client'])){
 
                             </div>
                             <label style="margin-left: 5px;">or</label> <br>
-                            <label style="margin-left: 5px;"><a href="clientsignup.php">Create a new account.</a></label>
+                            <label style="margin-left: 5px;"><a href="adminsignup.php">Create a new account.</a></label>
                         </form>
                     </div>
                 </div>

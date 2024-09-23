@@ -95,7 +95,7 @@ header("location: index.php"); //Redirecting
                                     <a href="index.php">Home</a>
                                 </li>
                                 <li>
-                                    <a href="clientlogin.php">Client</a>
+                                    <a href="adminlogin.php">Admin</a>
                                 </li>
                                 <li>
                                     <a href="customerlogin.php">Customer</a>
@@ -114,7 +114,7 @@ header("location: index.php"); //Redirecting
 
         <div class="container">
             <div class="jumbotron">
-                <h1>Welcome to LiveLife Automobiles </span>
+                <h1>Welcome to LiveLife Automobiles <span>(Customer)</span>
                 </h1>
                 <br>
                 <p>Kindly LOGIN to continue.</p>

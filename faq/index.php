@@ -58,7 +58,7 @@ require_once('../config.php');
                                     <ul class="dropdown-menu">
                                         <li> <a href="entercar.php">Add Car</a></li>
                                         <li> <a href="enterdriver.php"> Add Driver</a></li>
-                                        <li> <a href="clientview.php">View</a></li>
+                                        <li> <a href="adminview.php">View</a></li>
 
                                     </ul>
                                 </li>
@@ -107,7 +107,7 @@ require_once('../config.php');
                                     <a href="/../index.php">Home</a>
                                 </li>
                                 <li>
-                                    <a href="/../clientlogin.php">Client</a>
+                                    <a href="/../adminlogin.php">Admin</a>
                                 </li>
                                 <li>
                                     <a href="/../customerlogin.php">Customer</a>
