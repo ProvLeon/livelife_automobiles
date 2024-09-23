@@ -23,7 +23,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <?php
-                if(isset($_SESSION['login_client'])){
+                if(isset($_SESSION['login_admin'])){
             ?>
                 <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                     <ul class="nav navbar-nav">
@@ -31,7 +31,7 @@
                             <a href="index.php">Home</a>
                         </li>
                         <li>
-                            <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_client']; ?></a>
+                            <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
                         </li>
                         <li>
                             <ul class="nav navbar-nav navbar-right">
@@ -39,7 +39,7 @@
                                     <ul class="dropdown-menu">
                                         <li> <a href="entercar.php">Add Car</a></li>
                                         <li> <a href="enterdriver.php"> Add Driver</a></li>
-                                        <li> <a href="clientview.php">View</a></li>
+                                        <li> <a href="adminview.php">View</a></li>
                                     </ul>
                                 </li>
                             </ul>

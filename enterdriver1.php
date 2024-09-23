@@ -28,7 +28,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
-                if(isset($_SESSION['login_client'])){
+                if(isset($_SESSION['login_admin'])){
             ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
@@ -36,7 +36,7 @@
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_client']; ?></a>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
                     </li>
                     <li>
                     <ul class="nav navbar-nav navbar-right">
@@ -44,7 +44,7 @@
                 <ul class="dropdown-menu">
               <li> <a href="entercar.php">Add Car</a></li>
               <li> <a href="enterdriver.php"> Add Driver</a></li>
-              <li> <a href="clientview.php">View</a></li>
+              <li> <a href="adminview.php">View</a></li>
 
             </ul>
             </li>
@@ -115,7 +115,7 @@ $dl_number = $conn->real_escape_string($_POST['dl_number']);
 $driver_phone = $conn->real_escape_string($_POST['driver_phone']);
 $driver_address = $conn->real_escape_string($_POST['driver_address']);
 $driver_gender = $conn->real_escape_string($_POST['driver_gender']);
-$client_username = $_SESSION['login_client'];
+$client_username = $_SESSION['login_admin'];
 $driver_availability = "yes";
 
 $query = "INSERT into driver(driver_name,dl_number,driver_phone,driver_address,driver_gender,client_username,driver_availability) VALUES('" . $driver_name . "','" . $dl_number . "','" . $driver_phone . "','" . $driver_address . "','" . $driver_gender ."','" . $client_username ."','" . $driver_availability ."')";

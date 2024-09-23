@@ -6,7 +6,7 @@ $conn = Connect();
 session_start();// Starting Session
 
 // Storing Session
-$user_check=$_SESSION['login_client'];
+$user_check=$_SESSION['login_admin'];
 
 // SQL Query To Fetch Complete Information Of User
 $query = "SELECT client_username FROM clients WHERE client_username = '$user_check'";
