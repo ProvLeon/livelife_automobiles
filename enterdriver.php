@@ -3,7 +3,7 @@
 <html>
 
 <?php
-include('session_client.php'); ?>
+include('session_admin.php'); ?>
 
 <head>
 <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
@@ -30,7 +30,7 @@ include('session_client.php'); ?>
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
-                if(isset($_SESSION['login_client'])){
+                if(isset($_SESSION['login_admin'])){
             ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
@@ -38,7 +38,7 @@ include('session_client.php'); ?>
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_client']; ?></a>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
                     </li>
                     <li>
                     <ul class="nav navbar-nav navbar-right">
@@ -148,7 +148,7 @@ include('session_client.php'); ?>
 require 'connection.php';
 $conn = Connect();
 
-$user_check=$_SESSION['login_client'];
+$user_check=$_SESSION['login_admin'];
 $sql = "SELECT * FROM driver d WHERE d.client_username='$user_check' ORDER BY driver_name";
 $result = mysqli_query($conn, $sql);
 

@@ -26,7 +26,7 @@ $stmt -> store_result();
 
 if ($stmt->fetch())  //fetching the contents of the row
 {
-	$_SESSION['login_client']=$client_username; // Initializing Session
+	$_SESSION['login_admin']=$client_username; // Initializing Session
 	header("location: index.php"); // Redirecting To Other Page
 } else {
 $error = "Username or Password is invalid";

@@ -1,5 +1,5 @@
 <?php
-include('login_client.php'); // Includes Login Script
+include('login_admin.php'); // Includes Login Script
 
 if(isset($_SESSION['login_client'])){
     header("location: index.php"); //Redirecting

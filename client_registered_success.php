@@ -50,7 +50,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
 
             <?php
-                if(isset($_SESSION['login_client'])){
+                if(isset($_SESSION['login_admin'])){
             ?>
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
@@ -58,7 +58,7 @@
                         <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_client']; ?></a>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
                     </li>
                     <li>
                     <ul class="nav navbar-nav navbar-right">
