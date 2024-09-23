@@ -155,7 +155,7 @@ function dateDiff($start, $end) {
 
            <h5> End Date:&nbsp;  <?php echo($rent_end_date);?></h5>
 
-           <h5> Fare:&nbsp;  ₹<?php
+           <h5> Fare:&nbsp;  <?php echo CURRENCY; ?><?php
             if($charge_type == "days"){
                     echo ($fare . "/day");
                 } else {

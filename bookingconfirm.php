@@ -231,10 +231,10 @@ if(!isset($_SESSION['login_customer'])){
                 <?php
                 if($charge_type == "days"){
                 ?>
-                     <h4> <strong>Fare:</strong> ₹<?php echo $fare; ?>/day</h4>
+                     <h4> <strong>Fare:</strong> <?php echo CURRENCY; ?><?php echo $fare; ?>/day</h4>
                 <?php } else {
                     ?>
-                    <h4> <strong>Fare:</strong> ₹<?php echo $fare; ?>/km</h4>
+                    <h4> <strong>Fare:</strong> <?php echo CURRENCY; ?><?php echo $fare; ?>/km</h4>
 
                 <?php } ?>
 

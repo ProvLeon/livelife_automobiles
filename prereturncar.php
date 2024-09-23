@@ -147,7 +147,7 @@ $conn = Connect();
 <td><?php echo $row["car_name"]; ?></td>
 <td><?php echo $row["rent_start_date"] ?></td>
 <td><?php echo $row["rent_end_date"]; ?></td>
-<td>&#8377;<?php
+<td><?php echo CURRENCY; ?><?php
     if($row["charge_type"] == "days"){
         echo ($row["fare"] . "/day");
     } else {

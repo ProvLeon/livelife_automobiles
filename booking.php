@@ -11,7 +11,7 @@ if(!isset($_SESSION['login_customer'])){
     header("location: customerlogin.php");
 }
 ?>
-<title>Book Car </title>
+
 <head>
     <script type="text/javascript" src="assets/ajs/angular.min.js"> </script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
@@ -23,6 +23,7 @@ if(!isset($_SESSION['login_customer'])){
   <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="assets/js/custom.js"></script>
  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/clientpage.css" />
+ <title>Book Car </title>
 </head>
 <body ng-app="">
 
@@ -177,12 +178,12 @@ if(!isset($_SESSION['login_customer'])){
                      </div>
                     <div ng-switch-when="ac">
                     <!-- <div class="form-group"> -->
-                <h5>Fare: <?php echo("₹" . $ac_price . "/km and ₹" . $ac_price_per_day . "/day");?><h5>
+                <h5>Fare: <?php echo(CURRENCY . $ac_price . "/km and " . CURRENCY . $ac_price_per_day . "/day");?><h5>
                 <!-- </div>    -->
                      </div>
                      <div ng-switch-when="non_ac">
                      <!-- <div class="form-group"> -->
-                <h5>Fare: <?php echo("₹" . $non_ac_price . "/km and ₹" . $non_ac_price_per_day . "/day");?><h5>
+                <h5>Fare: <?php echo(CURRENCY . $non_ac_price . "/km and " . CURRENCY . $non_ac_price_per_day . "/day");?><h5>
                 <!-- </div>   -->
                      </div>
         </div>

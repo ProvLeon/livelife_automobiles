@@ -203,7 +203,7 @@ else {
                 <br>
                 <h4> <strong>Vehicle Number:</strong> <?php echo $car_nameplate; ?></h4>
                 <br>
-                <h4> <strong>Fare:&nbsp;</strong>  ₹<?php
+                <h4> <strong>Fare:&nbsp;</strong>  <?php echo CURRENCY; ?><?php
             if($charge_type == "days"){
                     echo ($fare . "/day");
                 } else {
