@@ -37,7 +37,7 @@ CREATE TABLE `cars` (
   `car_id` int(20) NOT NULL,
   `car_name` varchar(50) NOT NULL,
   `car_nameplate` varchar(50) NOT NULL,
-  `car_img` varchar(50) DEFAULT 'NA',
+  `car_img` varchar(255) DEFAULT 'NA',
   `ac_price` float NOT NULL,
   `non_ac_price` float NOT NULL,
   `ac_price_per_day` float NOT NULL,

@@ -14,7 +14,7 @@ include('session_admin.php'); ?>
 <link rel="stylesheet" type="text/css" href="assets/css/customerlogin.css">
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="assets/css/clientpage.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="assets/css/adminpage.css" />
 </head>
 <body>
  <!-- Navigation -->

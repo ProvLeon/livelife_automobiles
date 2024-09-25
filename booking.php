@@ -22,7 +22,7 @@ if(!isset($_SESSION['login_customer'])){
   <script type="text/javascript" src="assets/js/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="assets/js/custom.js"></script>
- <link rel="stylesheet" type="text/css" media="screen" href="assets/css/clientpage.css" />
+ <link rel="stylesheet" type="text/css" media="screen" href="assets/css/adminpage.css" />
  <title>Book Car </title>
 </head>
 <body ng-app="">

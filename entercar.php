@@ -13,7 +13,7 @@ include('session_admin.php'); ?>
     <link rel="stylesheet" href="assets/w3css/w3.css">
   <script type="text/javascript" src="assets/js/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/clientpage.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/adminpage.css" />
 </head>
 <body>
 
@@ -123,25 +123,25 @@ include('session_admin.php'); ?>
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="ac_price" name="ac_price" placeholder="AC Fare per km (in rupees)" required>
+            <input type="text" class="form-control" id="ac_price" name="ac_price" placeholder="AC Fare per km (in <?php echo CURRENCY; ?>)" required>
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="non_ac_price" name="non_ac_price" placeholder="Non-AC Fare per km (in rupees)" required>
+            <input type="text" class="form-control" id="non_ac_price" name="non_ac_price" placeholder="Non-AC Fare per km (in <?php echo CURRENCY; ?>)" required>
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="ac_price_per_day" name="ac_price_per_day" placeholder="AC Fare per day (in rupees)" required>
+            <input type="text" class="form-control" id="ac_price_per_day" name="ac_price_per_day" placeholder="AC Fare per day (in <?php echo CURRENCY; ?>)" required>
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="non_ac_price_per_day" name="non_ac_price_per_day" placeholder="Non-AC Fare per day (in rupees)" required>
+            <input type="text" class="form-control" id="non_ac_price_per_day" name="non_ac_price_per_day" placeholder="Non-AC Fare per day (in <?php echo CURRENCY; ?>)" required>
           </div>
 
           <div class="form-group">
             <input name="uploadedimage" type="file">
           </div>
-           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"> Add car</button>
+           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Add car</button>
         </form>
       </div>
     </div>
