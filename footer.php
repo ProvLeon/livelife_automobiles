@@ -153,8 +153,8 @@ if (session_status() == PHP_SESSION_NONE) {
                 <address>
                     Fourth Koforidua Street<br>
                     Koforidua, Eastern Region<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890<br>
-                    <a href="mailto:info@livelifeauto.com"><?php echo EMAIL_ACC; ?></a>
+                    <abbr title="Phone">P:</abbr> <?php echo('+'. CONTACT_NUM);?><br>
+                    <a href="mailto:info@livelifeauto.com"><?php echo CONTACT_EMAIL; ?></a>
                 </address>
             </div>
         </div>

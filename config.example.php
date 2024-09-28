@@ -10,7 +10,7 @@
     define('DB_DATABASE', 'carrental');
 
     // Email configuration
-    define('EMAIL_ACC', 'your-email@gmail.com'); //
+    define('EMAIL_ACC', 'your-email@gmail.com');
     define('EMAIL_PASSWORD', 'your-app-password');
     define('CONTACT', '(233) 550 144 927');
     define('SMTP_HOST', 'smtp.gmail.com');
