@@ -187,11 +187,11 @@ $conn = Connect();
                         </div>
                     </div>
                     <textarea class="w3-input w3-border" rows="4" placeholder="Message" required name="message"></textarea>
+                    <div id="messageResponse" style="display:none;"></div>
                     <button class="w3-button w3-black w3-right w3-section" type="submit">
                         <i class="fa fa-paper-plane"></i> SEND MESSAGE
                     </button>
                 </form>
-                <div id="messageResponse" style="display:none;"></div>
 
                 <script>
                 $(document).ready(function() {
