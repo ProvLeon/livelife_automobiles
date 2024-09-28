@@ -5,17 +5,16 @@ if(isset($_SESSION['login_admin'])){
     header("location: index.php"); //Redirecting
 }
 
-    if (!isset($error)) {
-        $error = '';
-    }
+if (!isset($error)) {
+    $error = '';
+}
 ?>
 
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-        <title> Client Login | Car Rental </title>
-        <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Login | Car Rental</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
@@ -24,113 +23,25 @@ if(isset($_SESSION['login_admin'])){
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="assets/css/adminlogin.css">
 </head>
-    <body>
-           <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="color: black">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                    </button>
-                <a class="navbar-brand page-scroll" href="index.php">
-                    LiveLife Automobiles </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+<body>
 
-            <?php
-                if(isset($_SESSION['login_admin'])){
-            ?>
-                <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="index.php">Home</a>
-                        </li>
-                        <li>
-                            <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
-                        </li>
-                        <li>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Control Panel <span class="caret"></span> </a>
-                                    <ul class="dropdown-menu">
-                                        <li> <a href="entercar.php">Add Car</a></li>
-                                        <li> <a href="enterdriver.php"> Add Driver</a></li>
-                                        <li> <a href="adminview.php">View</a></li>
+<?php include 'navbar.php'; ?>
 
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                        </li>
-                    </ul>
-                </div>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to LiveLife Automobiles <span>(Admin)</span></h1>
+        <br>
+        <p>Kindly LOGIN to continue.</p>
+    </div>
+</div>
 
-                <?php
-                }
-                else if (isset($_SESSION['login_customer'])){
-            ?>
-                    <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="index.php">Home</a>
-                            </li>
-                            <li>
-                                <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
-                            </li>
-                            <li>
-                                <a href="#">History</a>
-                            </li>
-                            <li>
-                                <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <?php
-            }
-                else {
-            ?>
-
-                        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <a href="index.php">Home</a>
-                                </li>
-                                <li>
-                                    <a href="adminlogin.php">Admin</a>
-                                </li>
-                                <li>
-                                    <a href="customerlogin.php">Customer</a>
-                                </li>
-                                <li>
-                                    <a href="/faq/index.php"> FAQ </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <?php   }
-                ?>
-                        <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Welcome to LiveLife Automobiles
-                    <span>(Admin)</span></h1>
-                <br>
-                <p>Kindly LOGIN to continue.</p>
-            </div>
-        </div>
-
-        <div class="container" style="margin-top: -2%; margin-bottom: 2%;">
-            <div class="col-md-5 col-md-offset-4">
-                <label style="margin-left: 5px;color: red;"><span> <?php echo $error;  ?> </span></label>
-                <div class="panel panel-primary">
-                    <div class="panel-heading"> Login </div>
-                    <div class="panel-body">
-
-                        <form action="" method="POST">
+<div class="container" style="margin-top: -2%; margin-bottom: 2%;">
+    <div class="col-md-5 col-md-offset-4">
+        <label style="margin-left: 5px;color: red;"><span> <?php echo $error;  ?> </span></label>
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Login </div>
+            <div class="panel-body">
+                <form action="" method="POST">
 
                             <div class="row">
                                 <div class="form-group col-xs-12">
@@ -167,21 +78,13 @@ if(isset($_SESSION['login_admin'])){
                             </div>
                             <label style="margin-left: 5px;">or</label> <br>
                             <label style="margin-left: 5px;"><a href="adminsignup.php">Create a new account.</a></label>
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-    </body>
-    <footer class="site-footer">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
-                </div>
-            </div>
-        </div>
-    </footer>
+    </div>
+</div>
 
-    </html>
+<?php include 'footer.php'; ?>
+
+</body>
+</html>

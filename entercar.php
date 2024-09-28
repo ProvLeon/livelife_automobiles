@@ -1,221 +1,239 @@
-<!DOCTYPE html>
-<html>
-
 <?php
-include('session_admin.php'); ?>
-
-<head>
-<link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/customerlogin.css">
-    <link rel="stylesheet" href="assets/w3css/w3.css">
-  <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/adminpage.css" />
-</head>
-<body>
-
-      <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="color: black">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                    </button>
-                <a class="navbar-brand page-scroll" href="index.php">
-                   LiveLife Automobiles </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <?php
-                if(isset($_SESSION['login_admin'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
-                    </li>
-                    <li>
-                    <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Control Panel <span class="caret"></span> </a>
-                <ul class="dropdown-menu">
-              <li> <a href="entercar.php">Add Car</a></li>
-              <li> <a href="enterdriver.php"> Add Driver</a></li>
-              <li> <a href="adminview.php">View</a></li>
-
-            </ul>
-            </li>
-          </ul>
-                    </li>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-                }
-                else if (isset($_SESSION['login_customer'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
-                    </li>
-                    <li>
-                        <a href="#">History</a>
-                    </li>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-            }
-                else {
-            ?>
-
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="adminlogin.php">Admin</a>
-                    </li>
-                    <li>
-                        <a href="customerlogin.php">Customer</a>
-                    </li>
-                    <li>
-                        <a href="#"> FAQ </a>
-                    </li>
-                </ul>
-            </div>
-                <?php   }
-                ?>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <div class="container" style="margin-top: 65px;" >
-    <div class="col-md-7" style="float: none; margin: 0 auto;">
-      <div class="form-area">
-        <form role="form" action="entercar1.php" enctype="multipart/form-data" method="POST">
-        <br style="clear: both">
-          <h3 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> Want to rent your car? Give us your car details. </h3>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="car_name" name="car_name" placeholder="Car Name " required autofocus="">
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="car_nameplate" name="car_nameplate" placeholder="Vehicle Number (Name Plate Number)" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="ac_price" name="ac_price" placeholder="AC Fare per km (in <?php echo CURRENCY; ?>)" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="non_ac_price" name="non_ac_price" placeholder="Non-AC Fare per km (in <?php echo CURRENCY; ?>)" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="ac_price_per_day" name="ac_price_per_day" placeholder="AC Fare per day (in <?php echo CURRENCY; ?>)" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="non_ac_price_per_day" name="non_ac_price_per_day" placeholder="Non-AC Fare per day (in <?php echo CURRENCY; ?>)" required>
-          </div>
-
-          <div class="form-group">
-            <input name="uploadedimage" type="file">
-          </div>
-           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Add car</button>
-        </form>
-      </div>
-    </div>
-
-
-        <div class="col-md-12" style="float: none; margin: 0 auto;">
-    <div class="form-area" style="padding: 0px 100px 100px 100px;">
-        <form action="" method="POST">
-        <br style="clear: both">
-          <h3 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> My Cars </h3>
-<?php
-// Storing Session
+include('session_admin.php');
 require 'connection.php';
 $conn = Connect();
+?>
 
-$user_check=$_SESSION['login_admin'];
-$sql = "SELECT * FROM cars WHERE car_id IN (SELECT car_id FROM clientcars WHERE client_username='$user_check');";
-$result = mysqli_query($conn, $sql);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cars | LiveLife Automobiles</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/adminpage.css"> -->
+    <style>
+    .actions {
+        display: flex;
+    }
+    #bg-custom, #thead-custom {
+        background-color: #2c3e50;
+    }
 
-if (mysqli_num_rows($result) > 0) {
-  ?>
-<div style="overflow-x:auto;">
-  <table class="table table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th></th>
-        <th width="24%"> Name</th>
-        <th width="15%"> Nameplate </th>
-        <th width="13%"> AC Fare (/km) </th>
-        <th width="17%"> Non-AC Fare (/km)</th>
-        <th width="13%"> AC Fare (/day)</th>
-        <th width="17%"> Non-AC Fare (/day)</th>
-        <th width="1%"> Availability </th>
-      </tr>
-    </thead>
+    .thead-dark {
+        color: white;
+        font-weight: bold;
+        justify-self: center;
+        text-align: center;
+    }
 
-    <?PHP
-      //OUTPUT DATA OF EACH ROW
-      while($row = mysqli_fetch_assoc($result)){
-    ?>
+    #add_car_btn {
+        position: right;
+    }
+    </style>
+</head>
+<body>
+    <?php include 'navbar.php'; ?>
 
-  <tbody>
-    <tr>
-      <td> <span class="glyphicon glyphicon-menu-right"></span> </td>
-      <td><?php echo $row["car_name"]; ?></td>
-      <td><?php echo $row["car_nameplate"]; ?></td>
-      <td><?php echo $row["ac_price"]; ?></td>
-      <td><?php echo $row["non_ac_price"]; ?></td>
-      <td><?php echo $row["ac_price_per_day"]; ?></td>
-      <td><?php echo $row["non_ac_price_per_day"]; ?></td>
-      <td><?php echo $row["car_availability"]; ?></td>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Manage Cars</h2>
 
-    </tr>
-  </tbody>
-  <?php } ?>
-  </table>
-  </div>
-    <br>
-  <?php } else { ?>
-  <h4><center>0 Cars available</center> </h4>
-  <?php } ?>
-        </form>
-</div>
+        <!-- Add Car Form -->
+        <div class="card mb-4">
+            <div id='bg-custom' class="card-header bg-custom text-white">
+                <h5 class="mb-0">Add New Car</h5>
+            </div>
+            <div class="card-body">
+                <form action="entercar1.php" enctype="multipart/form-data" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="car_name">Car Name</label>
+                            <input type="text" class="form-control" id="car_name" name="car_name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="car_nameplate">Vehicle Number</label>
+                            <input type="text" class="form-control" id="car_nameplate" name="car_nameplate" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="ac_price">AC Fare per km</label>
+                            <input type="number" class="form-control" id="ac_price" name="ac_price" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="non_ac_price">Non-AC Fare per km</label>
+                            <input type="number" class="form-control" id="non_ac_price" name="non_ac_price" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="ac_price_per_day">AC Fare per day</label>
+                            <input type="number" class="form-control" id="ac_price_per_day" name="ac_price_per_day" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="non_ac_price_per_day">Non-AC Fare per day</label>
+                            <input type="number" class="form-control" id="non_ac_price_per_day" name="non_ac_price_per_day" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="car_image">Car Image</label>
+                        <input type="file" class="form-control-file" id="car_image" name="uploadedimage" required>
+                    </div>
+                    <button id='add_car_btn' type="submit" name="submit" class="btn btn-primary">Add Car</button>
+                </form>
+            </div>
         </div>
-    </div>
-</body>
-<footer class="site-footer">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
+
+        <!-- Car Listing -->
+        <div class="card">
+            <div id='bg-custom' class="card-header bg-custom text-white">
+                <h5 class="mb-0">My Cars</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead id='thead-custom' class="thead-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Nameplate</th>
+                                <th>AC Fare (/km)</th>
+                                <th>Non-AC Fare (/km)</th>
+                                <th>AC Fare (/day)</th>
+                                <th>Non-AC Fare (/day)</th>
+                                <th>Availability</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $user_check = $_SESSION['login_admin'];
+                            $sql = "SELECT * FROM cars WHERE car_id IN (SELECT car_id FROM clientcars WHERE client_username='$user_check')";
+                            $result = mysqli_query($conn, $sql);
+
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row["car_name"] . "</td>";
+                                    echo "<td>" . $row["car_nameplate"] . "</td>";
+                                    echo "<td>" . $row["ac_price"] . "</td>";
+                                    echo "<td>" . $row["non_ac_price"] . "</td>";
+                                    echo "<td>" . $row["ac_price_per_day"] . "</td>";
+                                    echo "<td>" . $row["non_ac_price_per_day"] . "</td>";
+                                    echo "<td>" . $row["car_availability"] . "</td>";
+                                    echo "<td class='actions'>
+                                            <button class='btn btn-sm btn-primary mr-2' onclick='openUpdateModal(" . json_encode($row) . ")'>Update</button>
+                                            <button class='btn btn-sm btn-danger' onclick='removeCar(" . $row["car_id"] . ")'>Remove</button>
+                                          </td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='8' class='text-center'>No cars available</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- Update Car Modal -->
+    <div class="modal fade" id="updateCarModal" tabindex="-1" role="dialog" aria-labelledby="updateCarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateCarModalLabel">Update Car Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateCarForm">
+                        <input type="hidden" id="update_car_id" name="car_id">
+                        <div class="form-group">
+                            <label for="update_car_name">Car Name</label>
+                            <input type="text" class="form-control" id="update_car_name" name="car_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_car_nameplate">Vehicle Number</label>
+                            <input type="text" class="form-control" id="update_car_nameplate" name="car_nameplate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_ac_price">AC Fare per km</label>
+                            <input type="number" class="form-control" id="update_ac_price" name="ac_price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_non_ac_price">Non-AC Fare per km</label>
+                            <input type="number" class="form-control" id="update_non_ac_price" name="non_ac_price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_ac_price_per_day">AC Fare per day</label>
+                            <input type="number" class="form-control" id="update_ac_price_per_day" name="ac_price_per_day" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_non_ac_price_per_day">Non-AC Fare per day</label>
+                            <input type="number" class="form-control" id="update_non_ac_price_per_day" name="non_ac_price_per_day" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateCar()">Update Car</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<br/>
+<br/>
+<br/>
+    <?php include 'footer.php'; ?>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function openUpdateModal(car) {
+            $('#update_car_id').val(car.car_id);
+            $('#update_car_name').val(car.car_name);
+            $('#update_car_nameplate').val(car.car_nameplate);
+            $('#update_ac_price').val(car.ac_price);
+            $('#update_non_ac_price').val(car.non_ac_price);
+            $('#update_ac_price_per_day').val(car.ac_price_per_day);
+            $('#update_non_ac_price_per_day').val(car.non_ac_price_per_day);
+            $('#updateCarModal').modal('show');
+        }
+
+        function updateCar() {
+            $.ajax({
+                url: 'updatecar.php',
+                type: 'POST',
+                data: $('#updateCarForm').serialize(),
+                success: function(response) {
+                    alert('Car updated successfully');
+                    location.reload();
+                },
+                error: function() {
+                    alert('Error updating car');
+                }
+            });
+        }
+
+        function removeCar(carId) {
+            if (confirm('Are you sure you want to remove this car?')) {
+                $.ajax({
+                    url: 'removecar.php',
+                    type: 'POST',
+                    data: { car_id: carId },
+                    success: function(response) {
+                        alert('Car removed successfully');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Error removing car');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
 </html>

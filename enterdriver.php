@@ -1,217 +1,212 @@
-
-<!DOCTYPE html>
-<html>
-
 <?php
-include('session_admin.php'); ?>
-
-<head>
-<link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/w3css/w3.css">
-<link rel="stylesheet" type="text/css" href="assets/css/customerlogin.css">
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="assets/css/adminpage.css" />
-</head>
-<body>
- <!-- Navigation -->
- <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="color: black">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                    </button>
-                <a class="navbar-brand page-scroll" href="index.php">
-                   LiveLife Automobiles </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <?php
-                if(isset($_SESSION['login_admin'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
-                    </li>
-                    <li>
-                    <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Control Panel <span class="caret"></span> </a>
-                <ul class="dropdown-menu">
-              <li> <a href="entercar.php">Add Car</a></li>
-              <li> <a href="enterdriver.php"> Add Driver</a></li>
-              <li> <a href="adminview.php">View</a></li>
-
-            </ul>
-            </li>
-          </ul>
-                    </li>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-                }
-                else if (isset($_SESSION['login_customer'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
-                    </li>
-                    <li>
-                        <a href="#">History</a>
-                    </li>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-            }
-                else {
-            ?>
-
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="adminlogin.php">Admin</a>
-                    </li>
-                    <li>
-                        <a href="customerlogin.php">Customer</a>
-                    </li>
-                    <li>
-                        <a href="#"> FAQ </a>
-                    </li>
-                </ul>
-            </div>
-                <?php   }
-                ?>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <div class="container" style="margin-top: 65px;" >
-    <div class="col-md-7" style="float: none; margin: 0 auto;">
-      <div class="form-area">
-        <form role="form" action="enterdriver1.php" method="POST">
-        <br style="clear: both">
-          <h3 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> Enter Driver Details </h3>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="driver_name" name="driver_name" placeholder="Driver Name " required autofocus="">
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="dl_number" name="dl_number" placeholder="Driving License Number" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="driver_phone" name="driver_phone" placeholder="Contact" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="driver_address" name="driver_address" placeholder="Address" required>
-          </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" id="driver_gender" name="driver_gender" placeholder="Gender" required>
-          </div>
-
-           <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right"> Add Driver</button>
-        </form>
-      </div>
-    </div>
-    <div class="col-md-9" style="float: none; margin: 0 auto;">
-    <div class="form-area" style="padding: 0px 100px 100px 100px;">
-        <form action="" method="POST">
-        <br style="clear: both">
-          <h3 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> My Drivers </h3>
-<?php
-// Storing Session
+include('session_admin.php');
 require 'connection.php';
 $conn = Connect();
+?>
 
-$user_check=$_SESSION['login_admin'];
-$sql = "SELECT * FROM driver d WHERE d.client_username='$user_check' ORDER BY driver_name";
-$result = mysqli_query($conn, $sql);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Drivers | LiveLife Automobiles</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/adminpage.css">
+</head>
+<body>
+    <?php include 'navbar.php'; ?>
 
-if (mysqli_num_rows($result) > 0) {
-  ?>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Manage Drivers</h2>
 
-  <table class="table table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th>     </th>
-        <th> Name</th>
-        <th> Gender </th>
-        <th> DL Number </th>
-        <th> Contact </th>
-        <th> Address </th>
-        <th> Availability </th>
-      </tr>
-    </thead>
-
-    <?PHP
-      //OUTPUT DATA OF EACH ROW
-      while($row = mysqli_fetch_assoc($result)){
-    ?>
-
-  <tbody>
-    <tr>
-      <td> <span class="glyphicon glyphicon-menu-right"></span> </td>
-      <td><?php echo $row["driver_name"]; ?></td>
-      <td><?php echo $row["driver_gender"]; ?></td>
-      <td><?php echo $row["dl_number"]; ?></td>
-      <td><?php echo $row["driver_phone"]; ?></td>
-      <td><?php echo $row["driver_address"]; ?></td>
-      <td><?php echo $row["driver_availability"]; ?></td>
-
-    </tr>
-  </tbody>
-
-  <?php } ?>
-  </table>
-    <br>
-
-
-  <?php } else { ?>
-
-  <h4><center>0 Drivers available</center> </h4>
-
-  <?php } ?>
-
-        </form>
-
-</div>
+        <!-- Add Driver Form -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Add New Driver</h5>
+            </div>
+            <div class="card-body">
+                <form action="enterdriver1.php" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="driver_name">Driver Name</label>
+                            <input type="text" class="form-control" id="driver_name" name="driver_name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="dl_number">Driving License Number</label>
+                            <input type="text" class="form-control" id="dl_number" name="dl_number" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="driver_phone">Contact</label>
+                            <input type="tel" class="form-control" id="driver_phone" name="driver_phone" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="driver_address">Address</label>
+                            <input type="text" class="form-control" id="driver_address" name="driver_address" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="driver_gender">Gender</label>
+                            <select class="form-control" id="driver_gender" name="driver_gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary">Add Driver</button>
+                </form>
+            </div>
         </div>
-    </div>
 
-</body>
-<footer class="site-footer">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
+        <!-- Driver Listing -->
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">My Drivers</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>DL Number</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Availability</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $user_check = $_SESSION['login_admin'];
+                            $sql = "SELECT * FROM driver WHERE client_username='$user_check' ORDER BY driver_name";
+                            $result = mysqli_query($conn, $sql);
+
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row["driver_name"] . "</td>";
+                                    echo "<td>" . $row["driver_gender"] . "</td>";
+                                    echo "<td>" . $row["dl_number"] . "</td>";
+                                    echo "<td>" . $row["driver_phone"] . "</td>";
+                                    echo "<td>" . $row["driver_address"] . "</td>";
+                                    echo "<td>" . $row["driver_availability"] . "</td>";
+                                    echo "<td>
+                                            <button class='btn btn-sm btn-primary mr-2' onclick='openUpdateModal(" . json_encode($row) . ")'>Update</button>
+                                            <button class='btn btn-sm btn-danger' onclick='removeDriver(" . $row["driver_id"] . ")'>Remove</button>
+                                          </td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='7' class='text-center'>No drivers available</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- Update Driver Modal -->
+    <div class="modal fade" id="updateDriverModal" tabindex="-1" role="dialog" aria-labelledby="updateDriverModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateDriverModalLabel">Update Driver Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateDriverForm">
+                        <input type="hidden" id="update_driver_id" name="driver_id">
+                        <div class="form-group">
+                            <label for="update_driver_name">Driver Name</label>
+                            <input type="text" class="form-control" id="update_driver_name" name="driver_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_dl_number">Driving License Number</label>
+                            <input type="text" class="form-control" id="update_dl_number" name="dl_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_driver_phone">Contact</label>
+                            <input type="tel" class="form-control" id="update_driver_phone" name="driver_phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_driver_address">Address</label>
+                            <input type="text" class="form-control" id="update_driver_address" name="driver_address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_driver_gender">Gender</label>
+                            <select class="form-control" id="update_driver_gender" name="driver_gender" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateDriver()">Update Driver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php include 'footer.php'; ?>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function openUpdateModal(driver) {
+            $('#update_driver_id').val(driver.driver_id);
+            $('#update_driver_name').val(driver.driver_name);
+            $('#update_dl_number').val(driver.dl_number);
+            $('#update_driver_phone').val(driver.driver_phone);
+            $('#update_driver_address').val(driver.driver_address);
+            $('#update_driver_gender').val(driver.driver_gender);
+            $('#updateDriverModal').modal('show');
+        }
+
+        function updateDriver() {
+            $.ajax({
+                url: 'updatedriver.php',
+                type: 'POST',
+                data: $('#updateDriverForm').serialize(),
+                success: function(response) {
+                    alert('Driver updated successfully');
+                    location.reload();
+                },
+                error: function() {
+                    alert('Error updating driver');
+                }
+            });
+        }
+
+        function removeDriver(driverId) {
+            if (confirm('Are you sure you want to remove this driver?')) {
+                $.ajax({
+                    url: 'removedriver.php',
+                    type: 'POST',
+                    data: { driver_id: driverId },
+                    success: function(response) {
+                        alert('Driver removed successfully');
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Error removing driver');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
 </html>
