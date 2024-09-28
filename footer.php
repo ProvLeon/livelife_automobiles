@@ -151,8 +151,8 @@ if (session_status() == PHP_SESSION_NONE) {
             <div class="col-md-3">
                 <h5>Contact Us</h5>
                 <address>
-                    Fourth Koforidua Street<br>
-                    Koforidua, Eastern Region<br>
+                    LiveLife Automobiles<br>
+                    Koforidua, Ghana<br>
                     <abbr title="Phone">P:</abbr> <?php echo('+'. CONTACT_NUM);?><br>
                     <a href="mailto:info@livelifeauto.com"><?php echo CONTACT_EMAIL; ?></a>
                 </address>
