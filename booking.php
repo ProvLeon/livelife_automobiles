@@ -1,270 +1,228 @@
-<!DOCTYPE html>
-<html>
 <?php
-    require_once 'connection.php';
- include('session_customer.php');
+require_once 'connection.php';
+include('session_customer.php');
 
- $conn = Connect();
+$conn = Connect();
 
 if(!isset($_SESSION['login_customer'])){
     session_destroy();
     header("location: customerlogin.php");
 }
+
+$car_id = $_GET["id"];
+$sql1 = "SELECT * FROM cars WHERE car_id = ?";
+$stmt = $conn->prepare($sql1);
+$stmt->bind_param("i", $car_id);
+$stmt->execute();
+$result1 = $stmt->get_result();
+$row1 = $result1->fetch_assoc();
+
+$car_name = $row1["car_name"];
+$car_nameplate = $row1["car_nameplate"];
+$ac_price = $row1["ac_price"];
+$non_ac_price = $row1["non_ac_price"];
+$ac_price_per_day = $row1["ac_price_per_day"];
+$non_ac_price_per_day = $row1["non_ac_price_per_day"];
+$car_img = $row1["car_img"];
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <script type="text/javascript" src="assets/ajs/angular.min.js"> </script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/w3css/w3.css">
-  <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="assets/js/custom.js"></script>
- <link rel="stylesheet" type="text/css" media="screen" href="assets/css/adminpage.css" />
- <title>Book Car </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Car | LiveLife Automobiles</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { padding-top: 56px; }
+        .booking-form { max-width: 800px; margin: 0 auto; }
+        .car-image { max-width: 100%; height: auto; }
+    </style>
 </head>
-<body ng-app="">
+<body>
+    <?php include 'navbar.php'; ?>
 
-
-      <!-- Navigation -->
-     <!-- Navigation -->
-     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="color: black">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                    </button>
-                <a class="navbar-brand page-scroll" href="index.php">
-                   LiveLife Automobiles </a>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Book Your Car</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="<?php echo $car_img; ?>" alt="<?php echo $car_name; ?>" class="car-image mb-3">
+                <h3><?php echo $car_name; ?></h3>
+                <p><strong>Vehicle Number:</strong> <?php echo $car_nameplate; ?></p>
+                <p><strong>AC Price:</strong> <?php echo CURRENCY . $ac_price; ?>/km and <?php echo CURRENCY . $ac_price_per_day; ?>/day</p>
+                <p><strong>Non-AC Price:</strong> <?php echo CURRENCY . $non_ac_price; ?>/km and <?php echo CURRENCY . $non_ac_price_per_day; ?>/day</p>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-            <?php
-                if(isset($_SESSION['login_admin'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
-                    </li>
-                    <li>
-                    <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Control Panel <span class="caret"></span> </a>
-                <ul class="dropdown-menu">
-              <li> <a href="entercar.php">Add Car</a></li>
-              <li> <a href="enterdriver.php"> Add Driver</a></li>
-              <li> <a href="adminview.php">View</a></li>
-
-            </ul>
-            </li>
-          </ul>
-                    </li>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
+            <div class="col-md-6">
+                <form id="booking-form" class="booking-form">
+                    <div class="form-group">
+                        <label for="start_date">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required min="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" required min="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Car Type</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="ac" name="car_type" class="custom-control-input" value="ac" required>
+                            <label class="custom-control-label" for="ac">AC</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="non_ac" name="car_type" class="custom-control-input" value="non_ac" required>
+                            <label class="custom-control-label" for="non_ac">Non-AC</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Charge Type</label>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="per_km" name="charge_type" class="custom-control-input" value="km" required>
+                            <label class="custom-control-label" for="per_km">Per KM</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="per_day" name="charge_type" class="custom-control-input" value="day" required>
+                            <label class="custom-control-label" for="per_day">Per Day</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="driver">Choose a Driver</label>
+                        <select class="form-control" id="driver" name="driver_id" required>
+                            <option value="">Select a driver</option>
+                            <?php
+                            $sql2 = "SELECT * FROM driver d WHERE d.driver_availability = 'yes' AND d.client_username IN (SELECT cc.client_username FROM clientcars cc WHERE cc.car_id = ?)";
+                            $stmt2 = $conn->prepare($sql2);
+                            $stmt2->bind_param("i", $car_id);
+                            $stmt2->execute();
+                            $result2 = $stmt2->get_result();
+                            while($row2 = $result2->fetch_assoc()) {
+                                echo "<option value='".$row2['driver_id']."'>".$row2['driver_name']." (".$row2['driver_gender'].")</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div id="driver-details" class="mt-3" style="display: none;">
+                        <h5>Driver Details</h5>
+                        <p id="driver-name"></p>
+                        <p id="driver-gender"></p>
+                        <p id="driver-phone"></p>
+                    </div>
+                    <input type="hidden" name="car_id" value="<?php echo $car_id; ?>">
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Proceed to Payment</button>
+                </form>
             </div>
-
-            <?php
-                }
-                else if (isset($_SESSION['login_customer'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
-                    </li>
-                    <ul class="nav navbar-nav">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Garagge <span class="caret"></span> </a>
-                <ul class="dropdown-menu">
-              <li> <a href="prereturncar.php">Return Now</a></li>
-              <li> <a href="mybookings.php"> My Bookings</a></li>
-            </ul>
-            </li>
-          </ul>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-            }
-                else {
-            ?>
-
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="adminlogin.php">Admin</a>
-                    </li>
-                    <li>
-                        <a href="customerlogin.php">Customer</a>
-                    </li>
-                    <li>
-                        <a href="#"> FAQ </a>
-                    </li>
-                </ul>
-            </div>
-                <?php   }
-                ?>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-<div class="container" style="margin-top: 65px;" >
-    <div class="col-md-7" style="float: none; margin: 0 auto;">
-      <div class="form-area">
-        <form role="form" action="bookingconfirm.php" method="POST">
-        <br style="clear: both">
-          <h2 style="margin-bottom: 25px; text-align: center; font-size: 30px;"> Rent your dream car here </h2><br>
-
-        <?php
-        $car_id = $_GET["id"];
-        $sql1 = "SELECT * FROM cars WHERE car_id = '$car_id'";
-        $result1 = mysqli_query($conn, $sql1);
-
-        if(mysqli_num_rows($result1)){
-            while($row1 = mysqli_fetch_assoc($result1)){
-                $car_name = $row1["car_name"];
-                $car_nameplate = $row1["car_nameplate"];
-                $ac_price = $row1["ac_price"];
-                $non_ac_price = $row1["non_ac_price"];
-                $ac_price_per_day = $row1["ac_price_per_day"];
-                $non_ac_price_per_day = $row1["non_ac_price_per_day"];
-            }
-        }
-
-        ?>
-
-          <!-- <div class="form-group"> -->
-              <h5> Car:&nbsp;  <?php echo($car_name);?></h5>
-         <!-- </div> -->
-
-          <!-- <div class="form-group"> -->
-            <h5> Vehicle Number:&nbsp; <?php echo($car_nameplate);?></h5>
-          <!-- </div>      -->
-        <!-- <div class="form-group"> -->
-        <?php $today = date("Y-m-d") ?>
-          <label><h5>Start Date:</h5></label>
-            <input type="date" name="rent_start_date" min="<?php echo($today);?>" required="">
-            &nbsp;
-          <label><h5>End Date:</h5></label>
-          <input type="date" name="rent_end_date" min="<?php echo($today);?>" required="">
-        <!-- </div>      -->
-
-        <h5> Choose your car type:  &nbsp;
-            <input onclick="reveal()" type="radio" name="radio" value="ac" ng-model="myVar"> AC &nbsp;
-            <input onclick="reveal()" type="radio" name="radio" value="non_ac" ng-model="myVar"> Non-AC
-
-
-        <div ng-switch="myVar">
-        <div ng-switch-default>
-                    <!-- <div class="form-group"> -->
-                <h5>Fare: <h5>
-                <!-- </div>    -->
-                     </div>
-                    <div ng-switch-when="ac">
-                    <!-- <div class="form-group"> -->
-                <h5>Fare: <?php echo(CURRENCY . $ac_price . "/km and " . CURRENCY . $ac_price_per_day . "/day");?><h5>
-                <!-- </div>    -->
-                     </div>
-                     <div ng-switch-when="non_ac">
-                     <!-- <div class="form-group"> -->
-                <h5>Fare: <?php echo(CURRENCY . $non_ac_price . "/km and " . CURRENCY . $non_ac_price_per_day . "/day");?><h5>
-                <!-- </div>   -->
-                     </div>
-        </div>
-
-         <h5> Choose charge type:  &nbsp;
-            <input onclick="reveal()" type="radio" name="radio1" value="km"> per km(s) &nbsp;
-            <input onclick="reveal()" type="radio" name="radio1" value="days"> per day(s)
-
-            <br><br>
-                <!-- <form class="form-group"> -->
-                Choose a driver: &nbsp;
-                <select name="driver_id_from_dropdown" ng-model="myVar1">
-                        <?php
-                        $sql2 = "SELECT * FROM driver d WHERE d.driver_availability = 'yes' AND d.client_username IN (SELECT cc.client_username FROM clientcars cc WHERE cc.car_id = '$car_id')";
-                        $result2 = mysqli_query($conn, $sql2);
-
-                        if(mysqli_num_rows($result2) > 0){
-                            while($row2 = mysqli_fetch_assoc($result2)){
-                                $driver_id = $row2["driver_id"];
-                                $driver_name = $row2["driver_name"];
-                                $driver_gender = $row2["driver_gender"];
-                                $driver_phone = $row2["driver_phone"];
-                    ?>
-
-
-                    <option value="<?php echo($driver_id); ?>"><?php echo($driver_name); ?>
-
-
-                    <?php }}
-                    else{
-                        ?>
-                    Sorry! No Drivers are currently available, try again later...
-                        <?php
-                    }
-                    ?>
-                </select>
-                <!-- </form> -->
-                <div ng-switch="myVar1">
-
-
-                <?php
-                        $sql3 = "SELECT * FROM driver d WHERE d.driver_availability = 'yes' AND d.client_username IN (SELECT cc.client_username FROM clientcars cc WHERE cc.car_id = '$car_id')";
-                        $result3 = mysqli_query($conn, $sql3);
-
-                        if(mysqli_num_rows($result3) > 0){
-                            while($row3 = mysqli_fetch_assoc($result3)){
-                                $driver_id = $row3["driver_id"];
-                                $driver_name = $row3["driver_name"];
-                                $driver_gender = $row3["driver_gender"];
-                                $driver_phone = $row3["driver_phone"];
-
-                ?>
-
-                <div ng-switch-when="<?php echo($driver_id); ?>">
-                    <h5>Driver Name:&nbsp; <?php echo($driver_name); ?></h5>
-                    <p>Gender:&nbsp; <?php echo($driver_gender); ?> </p>
-                    <p>Contact:&nbsp; <?php echo($driver_phone); ?> </p>
-                </div>
-                <?php }} ?>
-                </div>
-                <input type="hidden" name="hidden_carid" value="<?php echo $car_id; ?>">
-
-
-           <input type="submit"name="submit" value="Book Now" class="btn btn-success pull-right">
-        </form>
-
-      </div>
-      <div class="col-md-12" style="float: none; margin: 0 auto; text-align: center;">
-            <h6><strong>Kindly Note:</strong> You will be charged <span class="text-danger"><?php echo CURRENCY; ?>200/-</span> for each day after the due date.</h6>
         </div>
     </div>
 
-</body>
-<footer class="site-footer">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="payment-form">
+                        <div id="card-element">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+                        <!-- Used to display form errors. -->
+                        <div id="card-errors" role="alert"></div>
+                        <button id="submit-payment" class="btn btn-primary btn-block mt-4">Pay Now</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <?php include 'footer.php'; ?>
+
+    <script>
+        $(document).ready(function() {
+            $('#driver').change(function() {
+                var driverId = $(this).val();
+                if (driverId) {
+                    $.ajax({
+                        url: 'get_driver_details.php',
+                        type: 'POST',
+                        data: { driver_id: driverId },
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#driver-name').text('Name: ' + data.driver_name);
+                            $('#driver-gender').text('Gender: ' + data.driver_gender);
+                            $('#driver-phone').text('Phone: ' + data.driver_phone);
+                            $('#driver-details').show();
+                        }
+                    });
+                } else {
+                    $('#driver-details').hide();
+                }
+            });
+
+            $('#booking-form').submit(function(e) {
+                e.preventDefault();
+                $('#paymentModal').modal('show');
+            });
+
+            // Create a Stripe client.
+            var stripe = Stripe('your_stripe_publishable_key');
+            var elements = stripe.elements();
+
+            // Create an instance of the card Element.
+            var card = elements.create('card');
+
+            // Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function(event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+
+            // Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                stripe.createToken(card).then(function(result) {
+                    if (result.error) {
+                        // Inform the user if there was an error.
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = result.error.message;
+                    } else {
+                        // Send the token to your server.
+                        stripeTokenHandler(result.token);
+                    }
+                });
+            });
+
+            // Submit the form with the token ID.
+            function stripeTokenHandler(token) {
+                // Insert the token ID into the form so it gets submitted to the server
+                var form = document.getElementById('payment-form');
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', token.id);
+                form.appendChild(hiddenInput);
+
+                // Submit the form
+                form.submit();
+            }
+        });
+    </script>
+</body>
 </html>

@@ -1,9 +1,8 @@
-
 <?php
-function faq(){
-
-return('/faq/index.php');
+function faq() {
+    header("Location: faq/index.php");
+    exit();
 }
 
-faq()
+faq();
 ?>

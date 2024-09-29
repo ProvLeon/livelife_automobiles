@@ -1,50 +1,66 @@
 <?php
 require_once('../config.php');
+session_start();
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="no-js">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" href="css/reset.css">
-    <!-- CSS reset -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Resource style -->
-    <script src="js/modernizr.js"></script>
-    <!-- Modernizr -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/user.css">
-    <link rel="stylesheet" href="assets/w3css/w3.css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <title>FAQ | LiveLife Automobiles</title>
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/user.css">
+    <link rel="stylesheet" href="../assets/w3css/w3.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/modernizr.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+            padding-top: 70px;
+        }
+        .cd-faq {
+            max-width: 1024px;
+            margin: 2em auto;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-
 <body>
+    <?php include 'faq_navbar.php'; ?>
 
-    <!-- Navigation -->
-<?php include 'navbar.php'; ?>
+    <div class="content-wrapper">
+        <section class="cd-faq">
+            <ul class="cd-faq-categories">
+                <li><a class="selected" href="#basics">Basics</a></li>
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="#chauffeur">Chauffeur Services</a></li>
+            </ul>
 
-    <section class="cd-faq">
-        <ul class="cd-faq-categories">
-            <li><a class="selected" href="#basics">Basics</a></li>
-            <li><a href="#membership">Membership</a></li>
-            <li><a href="#chauffeur">Chauffeur Services</a></li>
-        </ul>
-        <!-- cd-faq-categories -->
-
-        <div class="cd-faq-items">
-            <ul id="basics" class="cd-faq-group">
-                <li class="cd-faq-title">
-                    <h2>Basics</h2>
-                </li>
+            <div class="cd-faq-items">
+                <ul id="basics" class="cd-faq-group">
+                    <li class="cd-faq-title">
+                        <h2>Basics</h2>
+                    </li>
                 <li>
                     <a class="cd-faq-trigger" href="#0">How do I pay for my Rental?</a>
                     <div class="cd-faq-content">
@@ -164,6 +180,10 @@ require_once('../config.php');
         <!-- cd-faq-items -->
         <a href="#0" class="cd-close-panel">Close</a>
     </section>
+    </div>
+
+    <?php include 'faq_footer.php'; ?>
+
     <!-- cd-faq -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/jquery.mobile.custom.min.js"></script>

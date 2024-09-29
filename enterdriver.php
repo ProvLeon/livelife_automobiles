@@ -14,6 +14,23 @@ $conn = Connect();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/adminpage.css">
+
+    <style>
+
+    .actions {
+        display: flex;
+    }
+    #bg-custom, #thead-custom {
+        background-color: #2c3e50;
+    }
+    .thead-dark {
+        color: white;
+        font-weight: bold;
+        justify-self: center;
+        text-align: center;
+    }
+    </style>
+
 </head>
 <body>
     <?php include 'navbar.php'; ?>
@@ -23,7 +40,7 @@ $conn = Connect();
 
         <!-- Add Driver Form -->
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div id='bg-custom' class="card-header  text-white">
                 <h5 class="mb-0">Add New Driver</h5>
             </div>
             <div class="card-body">
@@ -64,13 +81,13 @@ $conn = Connect();
 
         <!-- Driver Listing -->
         <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div id='bg-custom' class="card-header text-white">
                 <h5 class="mb-0">My Drivers</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
-                        <thead class="thead-dark">
+                        <thead id='thead-custom' class="thead-dark">
                             <tr>
                                 <th>Name</th>
                                 <th>Gender</th>

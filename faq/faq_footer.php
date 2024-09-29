@@ -142,10 +142,10 @@ if (session_status() == PHP_SESSION_NONE) {
             <div class="col-md-3 mb-4 mb-md-0">
                 <h5>Quick Links</h5>
                 <ul class="footer-nav">
-                    <li><a class="footer-link" href="index.php">Home</a></li>
-                    <li><a class="footer-link" href="customerlogin.php">Rent a Car</a></li>
-                    <li><a class="footer-link" href="faq.php">FAQ</a></li>
-                    <!-- <li><a class="footer-link" href="about.php">About Us</a></li> -->
+                    <li><a class="footer-link" href="../index.php">Home</a></li>
+                    <li><a class="footer-link" href="../customerlogin.php">Rent a Car</a></li>
+                    <li><a class="footer-link" href="../faq.php">FAQ</a></li>
+                    <!-- <li><a class="footer-link" href="../about.php">About Us</a></li> -->
                 </ul>
             </div>
             <div class="col-md-3">

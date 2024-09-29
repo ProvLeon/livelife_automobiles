@@ -1,89 +1,67 @@
 <?php
-include('login_customer.php'); // Includes Login Script
+include 'config.php';
+include('login_customer.php');
 
 if(isset($_SESSION['login_customer'])){
-header("location: index.php"); //Redirecting
+    header("location: index.php");
+}
+
+if (!isset($error)) {
+    $error = '';
 }
 ?>
 
-    <!DOCTYPE html>
-    <html>
-
-    <head>
-        <title> Customer Login | Car Rental </title>
-    </head>
-    <link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
-    <link rel="stylesheet" type="text/css" href="assets/css/customerlogin.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/w3css/w3.css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-
-    <body background="assets/img/forcustomer.png">
-                 <!-- Navigation -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login | LiveLife Automobiles</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
     <?php include 'navbar.php'; ?>
 
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Welcome to LiveLife Automobiles <span>(Customer)</span>
-                </h1>
-                <br>
-                <p>Kindly LOGIN to continue.</p>
-            </div>
-        </div>
-
-        <div class="container" style="margin-top: -2%; margin-bottom: 2%;">
-            <div class="col-md-5 col-md-offset-4">
-                <label style="margin-left: 5px;color: red;"><span> <?php echo $error;  ?> </span></label>
-                <div class="panel panel-primary">
-                    <div class="panel-heading"> Login </div>
-                    <div class="panel-body">
-
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">Customer Login</h4>
+                    </div>
+                    <div class="card-body">
+                        <?php if($error != ''): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endif; ?>
                         <form action="" method="POST">
-
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <label for="customer_username"><span class="text-danger" style="margin-right: 5px;">*</span> Username: </label>
-                                    <div class="input-group">
-                                        <input class="form-control" id="customer_username" type="text" name="customer_username" placeholder="Username" required="" autofocus="">
-                                        <span class="input-group-btn">
-                <label class="btn btn-primary"><span class="glyphicon glyphicon-user" aria-hidden="true"></label>
-            </span>
-                                        </span>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="customer_username"><i class="fas fa-user"></i> Username</label>
+                                <input type="text" class="form-control" id="customer_username" name="customer_username" required autofocus>
                             </div>
-
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <label for="customer_password"><span class="text-danger" style="margin-right: 5px;">*</span> Password: </label>
-                                    <div class="input-group">
-                                        <input class="form-control" id="customer_password" type="password" name="customer_password" placeholder="Password" required="">
-                                        <span class="input-group-btn">
-                <label class="btn btn-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></label>
-                                        </span>
-
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="customer_password"><i class="fas fa-lock"></i> Password</label>
+                                <input type="password" class="form-control" id="customer_password" name="customer_password" required>
                             </div>
-
-                            <div class="row">
-                                <div class="form-group col-xs-4">
-                                    <button class="btn btn-primary" name="submit" type="submit" value=" Login ">Submit</button>
-
-                                </div>
-
-                            </div>
-                            <label style="margin-left: 5px;">or</label> <br>
-                            <label style="margin-left: 5px;"><a href="customersignup.php">Create a new account.</a></label>
+                            <button type="submit" name="submit" class="btn btn-success btn-block">Login</button>
                         </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p class="mb-0">Don't have an account? <a href="customersignup.php">Sign up</a></p>
                     </div>
                 </div>
             </div>
         </div>
-    <?php include 'footer.php'; ?>
-    </body>
+    </div>
 
-    </html>
+    <?php include 'footer.php'; ?>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

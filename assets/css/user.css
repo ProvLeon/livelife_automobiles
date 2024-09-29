@@ -17,7 +17,7 @@ a:hover {
 
 @keyframes blinker {
     50% {
-        opacity: 0;
+        opacity: 0%;
     }
 }
 
@@ -147,6 +147,7 @@ a:hover {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+
 }
 
 .intro .intro-body {
@@ -191,14 +192,21 @@ a:hover {
     height: 50px;
     line-height: 33px;
     text-align: center;
-    border: 2px solid #fff;
+    border: 2px solid white;
     border-radius: 100% !important;
     font-size: 20px;
-    color: #fff;
-    background: 0 0;
+    color: white;
+
+    background: white;
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
     transition: background .3s ease-in-out;
+}
+
+.btn-circle i {
+    color: white;
+    /* Ensures the icon is white */
+    /* Increase icon size */
 }
 
 .btn-circle:hover,
