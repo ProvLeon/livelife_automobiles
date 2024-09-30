@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2018 at 02:57 PM
+-- Generation Time: Sept 15, 2024 at 02:57 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -37,7 +37,7 @@ CREATE TABLE `cars` (
   `car_id` int(20) NOT NULL,
   `car_name` varchar(50) NOT NULL,
   `car_nameplate` varchar(50) NOT NULL,
-  `car_img` varchar(255) DEFAULT 'NA',
+  `car_img` varchar(50) DEFAULT 'NA',
   `ac_price` float NOT NULL,
   `non_ac_price` float NOT NULL,
   `ac_price_per_day` float NOT NULL,
@@ -211,7 +211,7 @@ INSERT INTO `feedback` (`name`, `e_mail`, `message`) VALUES
 
 CREATE TABLE `rentedcars` (
   `id` int(100) NOT NULL,
-  `customer_username` varchar(255) NOT NULL,
+  `customer_username` varchar(50) NOT NULL,
   `car_id` int(20) NOT NULL,
   `driver_id` int(20) NOT NULL,
   `booking_date` date NOT NULL,

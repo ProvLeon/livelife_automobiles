@@ -1,124 +1,21 @@
-<!DOCTYPE html>
-<html>
 <?php
 session_start();
-
 require_once 'connection.php';
+
+if (!isset($_SESSION['login_customer'])) {
+    header("Location: customerlogin.php");
+    exit;
+}
+
 $conn = Connect();
 
-?>
-<head>
-<link rel="shortcut icon" type="image/png" href="assets/img/P.png.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-<link rel="stylesheet" href="assets/w3css/w3.css">
-<link rel="stylesheet" type="text/css" href="assets/css/customerlogin.css">
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="assets/css/clientpage.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="assets/css/bookingconfirm.css" />
-</head>
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-<!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" style="color: black">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
-                    </button>
-                <a class="navbar-brand page-scroll" href="index.php">
-                   LiveLife Automobiles </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+$id = isset($_GET["id"]) ? intval($_GET["id"]) : 0;
 
-            <?php
-                if(isset($_SESSION['login_admin'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_admin']; ?></a>
-                    </li>
-                    <li>
-                    <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Control Panel <span class="caret"></span> </a>
-                <ul class="dropdown-menu">
-              <li> <a href="entercar.php">Add Car</a></li>
-              <li> <a href="enterdriver.php"> Add Driver</a></li>
-              <li> <a href="adminview.php">View</a></li>
+if (!$id || !isset($_POST['distance_or_days']) || !isset($_POST['hid_fare'])) {
+    header("Location: mybookings.php");
+    exit;
+}
 
-            </ul>
-            </li>
-          </ul>
-                    </li>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-                }
-                else if (isset($_SESSION['login_customer'])){
-            ?>
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> Welcome <?php echo $_SESSION['login_customer']; ?></a>
-                    </li>
-                    <ul class="nav navbar-nav">
-            <li><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> garage <span class="caret"></span> </a>
-                <ul class="dropdown-menu">
-              <li> <a href="prereturncar.php">Return Now</a></li>
-              <li> <a href="mybookings.php"> My Bookings</a></li>
-            </ul>
-            </li>
-          </ul>
-                    <li>
-                        <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
-            </div>
-
-            <?php
-            }
-                else {
-            ?>
-
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li>
-                        <a href="adminlogin.php">Admin</a>
-                    </li>
-                    <li>
-                        <a href="customerlogin.php">Customer</a>
-                    </li>
-                    <li>
-                        <a href="#"> FAQ </a>
-                    </li>
-                </ul>
-            </div>
-                <?php   }
-                ?>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-<body>
-
-<?php
-$id = $_GET["id"];
-$distance = NULL;
 $distance_or_days = $conn->real_escape_string($_POST['distance_or_days']);
 $fare = $conn->real_escape_string($_POST['hid_fare']);
 $total_amount = $distance_or_days * $fare;
@@ -126,18 +23,27 @@ $car_return_date = date('Y-m-d');
 $return_status = "R";
 $login_customer = $_SESSION['login_customer'];
 
-$sql0 = "SELECT rc.id, rc.rent_end_date, rc.charge_type, rc.rent_start_date, c.car_name, c.car_nameplate FROM rentedcars rc, cars c WHERE id = '$id' AND c.car_id = rc.car_id";
-$result0 = $conn->query($sql0);
+$sql0 = "SELECT rc.id, rc.rent_end_date, rc.charge_type, rc.rent_start_date, c.car_name, c.car_nameplate
+         FROM rentedcars rc
+         JOIN cars c ON c.car_id = rc.car_id
+         WHERE rc.id = ?";
 
-if(mysqli_num_rows($result0) > 0) {
-    while($row0 = mysqli_fetch_assoc($result0)){
-            $rent_end_date = $row0["rent_end_date"];
-            $rent_start_date = $row0["rent_start_date"];
-            $car_name = $row0["car_name"];
-            $car_nameplate = $row0["car_nameplate"];
-            $charge_type = $row0["charge_type"];
-    }
+$stmt = $conn->prepare($sql0);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result0 = $stmt->get_result();
+
+if($result0->num_rows == 0) {
+    header("Location: mybookings.php");
+    exit;
 }
+
+$row0 = $result0->fetch_assoc();
+$rent_end_date = $row0["rent_end_date"];
+$rent_start_date = $row0["rent_start_date"];
+$car_name = $row0["car_name"];
+$car_nameplate = $row0["car_nameplate"];
+$charge_type = $row0["charge_type"];
 
 function dateDiff($start, $end) {
     $start_ts = strtotime($start);
@@ -146,110 +52,190 @@ function dateDiff($start, $end) {
     return round($diff / 86400);
 }
 
-$extra_days = dateDiff("$rent_end_date", "$car_return_date");
-$total_fine = $extra_days*200;
+$extra_days = dateDiff($rent_end_date, $car_return_date);
+$total_fine = $extra_days * 200;
+$duration = dateDiff($rent_start_date, $rent_end_date);
 
-$duration = dateDiff("$rent_start_date","$rent_end_date");
-
-if($extra_days>0) {
-    $total_amount = $total_amount + $total_fine;
+if ($extra_days > 0) {
+    $total_amount += $total_fine;
 }
 
-if($charge_type == "days"){
+if ($charge_type == "days") {
     $no_of_days = $distance_or_days;
-    $sql1 = "UPDATE rentedcars SET car_return_date='$car_return_date', no_of_days='$no_of_days', total_amount='$total_amount', return_status='$return_status' WHERE id = '$id' ";
+    $sql1 = "UPDATE rentedcars SET car_return_date=?, no_of_days=?, total_amount=?, return_status=? WHERE id = ?";
+    $stmt = $conn->prepare($sql1);
+    $stmt->bind_param("sidsi", $car_return_date, $no_of_days, $total_amount, $return_status, $id);
 } else {
     $distance = $distance_or_days;
-    $sql1 = "UPDATE rentedcars SET car_return_date='$car_return_date', distance='$distance', no_of_days='$duration', total_amount='$total_amount', return_status='$return_status' WHERE id = '$id' ";
+    $sql1 = "UPDATE rentedcars SET car_return_date=?, distance=?, no_of_days=?, total_amount=?, return_status=? WHERE id = ?";
+    $stmt = $conn->prepare($sql1);
+    $stmt->bind_param("sidssi", $car_return_date, $distance, $duration, $total_amount, $return_status, $id);
 }
 
-$result1 = $conn->query($sql1);
+$result1 = $stmt->execute();
 
-if ($result1){
-     $sql2 = "UPDATE cars c, driver d, rentedcars rc SET c.car_availability='yes', d.driver_availability='yes'
-     WHERE rc.car_id=c.car_id AND rc.driver_id=d.driver_id AND rc.customer_username = '$login_customer' AND rc.id = '$id'";
-     $result2 = $conn->query($sql2);
+if ($result1) {
+    $sql2 = "UPDATE cars c, driver d, rentedcars rc
+             SET c.car_availability='yes', d.driver_availability='yes'
+             WHERE rc.car_id=c.car_id AND rc.driver_id=d.driver_id AND rc.customer_username = ? AND rc.id = ?";
+    $stmt = $conn->prepare($sql2);
+    $stmt->bind_param("si", $login_customer, $id);
+    $stmt->execute();
 }
-else {
-    echo $conn->error;
-}
+
+$conn->close();
 ?>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="text-center" style="color: green;"><span class="glyphicon glyphicon-ok-circle"></span> Car Returned</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill - Order #<?php echo $id; ?> | LiveLife Automobiles</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body { padding-top: 56px; background-color: #f8f9fa; }
+        .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, .15); font-size: 16px; line-height: 24px; background: #fff; }
+        .invoice-box table { width: 100%; line-height: inherit; text-align: left; }
+        .invoice-box table td { padding: 5px; vertical-align: top; }
+        .invoice-box table tr.top table td { padding-bottom: 20px; }
+        .invoice-box table tr.heading td { background: #eee; border-bottom: 1px solid #ddd; font-weight: bold; }
+        .invoice-box table tr.details td { padding-bottom: 20px; }
+        .invoice-box table tr.item td { border-bottom: 1px solid #eee; }
+        .invoice-box table tr.item.last td { border-bottom: none; }
+        .invoice-box table tr.total td:nth-child(2) { border-top: 2px solid #eee; font-weight: bold; }
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td { width: 100%; display: block; text-align: center; }
+            .invoice-box table tr.information table td { width: 100%; display: block; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <?php include 'navbar.php'; ?>
+
+    <div class="container mt-4">
+        <div class="alert alert-success text-center" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-check-circle"></i> Car Returned Successfully</h4>
+            <p>Thank you for choosing LiveLife Automobiles. We hope you had a great experience!</p>
+        </div>
+
+        <div class="invoice-box mt-4">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    <img src="assets/img/logo.png" style="width:100%; max-width:300px;">
+                                </td>
+                                <td class="text-right">
+                                    Invoice #: <?php echo $id; ?><br>
+                                    Created: <?php echo date("F j, Y"); ?><br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr class="information">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    LiveLife Automobiles<br>
+                                    123 Main Street<br>
+                                    City, State 12345
+                                </td>
+                                <td class="text-right">
+                                    <?php echo $_SESSION['login_customer']; ?><br>
+                                    Customer ID: <?php echo $_SESSION['login_customer']; ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr class="heading">
+                    <td>Car Details</td>
+                    <td>Info</td>
+                </tr>
+
+                <tr class="details">
+                    <td>Vehicle Name</td>
+                    <td><?php echo $car_name; ?></td>
+                </tr>
+
+                <tr class="details">
+                    <td>Vehicle Number</td>
+                    <td><?php echo $car_nameplate; ?></td>
+                </tr>
+
+                <tr class="heading">
+                    <td>Rental Details</td>
+                    <td>Date</td>
+                </tr>
+
+                <tr class="item">
+                    <td>Start Date</td>
+                    <td><?php echo $rent_start_date; ?></td>
+                </tr>
+
+                <tr class="item">
+                    <td>End Date</td>
+                    <td><?php echo $rent_end_date; ?></td>
+                </tr>
+
+                <tr class="item">
+                    <td>Return Date</td>
+                    <td><?php echo $car_return_date; ?></td>
+                </tr>
+
+                <tr class="heading">
+                    <td>Charges</td>
+                    <td>Price</td>
+                </tr>
+
+                <tr class="item">
+                    <td>Fare (<?php echo $charge_type == "days" ? "per day" : "per km"; ?>)</td>
+                    <td><?php echo CURRENCY . $fare; ?></td>
+                </tr>
+
+                <tr class="item">
+                    <td><?php echo $charge_type == "days" ? "Number of days" : "Distance travelled"; ?></td>
+                    <td><?php echo $distance_or_days . ($charge_type == "days" ? " day(s)" : " km"); ?></td>
+                </tr>
+
+                <?php if($extra_days > 0) { ?>
+                <tr class="item">
+                    <td>Late Return Fine (<?php echo $extra_days; ?> extra days)</td>
+                    <td><?php echo CURRENCY . $total_fine; ?></td>
+                </tr>
+                <?php } ?>
+
+                <tr class="total">
+                    <td></td>
+                    <td>Total: <?php echo CURRENCY . $total_amount; ?></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <button onclick="window.print();" class="btn btn-primary">
+                <i class="fas fa-print"></i> Print Invoice
+            </button>
+            <a href="mybookings.php" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to My Bookings
+            </a>
         </div>
     </div>
-    <br>
 
-    <h2 class="text-center"> Thank you for visiting LiveLife Automobiles! We wish you have a safe ride. </h2>
+    <?php include 'footer.php'; ?>
 
-    <h3 class="text-center"> <strong>Your Order Number:</strong> <span style="color: blue;"><?php echo "$id"; ?></span> </h3>
-
-
-    <div class="container">
-        <h5 class="text-center">Please read the following information about your order.</h5>
-        <div class="box">
-            <div class="col-md-10" style="float: none; margin: 0 auto; text-align: center;">
-                <h3 style="color: orange;">Your booking has been received and placed into out order processing system.</h3>
-                <br>
-                <h4>Please make a note of your <strong>order number</strong> now and keep in the event you need to communicate with us about your order.</h4>
-                <br>
-                <h3 style="color: orange;">Invoice</h3>
-                <br>
-            </div>
-            <div class="col-md-10" style="float: none; margin: 0 auto; ">
-                <h4> <strong>Vehicle Name: </strong> <?php echo $car_name;?></h4>
-                <br>
-                <h4> <strong>Vehicle Number:</strong> <?php echo $car_nameplate; ?></h4>
-                <br>
-                <h4> <strong>Fare:&nbsp;</strong>  <?php echo CURRENCY; ?><?php
-            if($charge_type == "days"){
-                    echo ($fare . "/day");
-                } else {
-                    echo ($fare . "/km");
-                }
-            ?></h4>
-                <br>
-                <h4> <strong>Booking Date: </strong> <?php echo date("Y-m-d"); ?> </h4>
-                <br>
-                <h4> <strong>Start Date: </strong> <?php echo $rent_start_date; ?></h4>
-                <br>
-                <h4> <strong>Rent End Date: </strong> <?php echo $rent_end_date; ?></h4>
-                <br>
-                <h4> <strong>Car Return Date: </strong> <?php echo $car_return_date; ?> </h4>
-                <br>
-                <?php if($charge_type == "days"){?>
-                    <h4> <strong>Number of days:</strong> <?php echo $distance_or_days; ?>day(s)</h4>
-                <?php } else { ?>
-                    <h4> <strong>Distance Travelled:</strong> <?php echo $distance_or_days; ?>km(s)</h4>
-                <?php } ?>
-                <br>
-                <?php
-                    if($extra_days > 0){
-
-                ?>
-                <h4> <strong>Total Fine:</strong> <label class="text-danger"> ₹<?php echo $total_fine; ?>/- </label> for <?php echo $extra_days;?> extra days.</h4>
-                <br>
-                <?php } ?>
-                <h4> <strong>Total Amount: </strong> ₹<?php echo $total_amount; ?>/-     </h4>
-                <br>
-            </div>
-        </div>
-        <div class="col-md-12" style="float: none; margin: 0 auto; text-align: center;">
-            <h6>Warning! <strong>Do not reload this page</strong> or the above display will be lost. If you want a hardcopy of this page, please print it now.</h6>
-        </div>
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-<footer class="site-footer">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-sm-6">
-                    <h5>© <?php echo date("Y") ?> LiveLife Automobiles</h5>
-                </div>
-            </div>
-        </div>
-    </footer>
 </html>

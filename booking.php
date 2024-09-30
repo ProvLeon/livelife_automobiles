@@ -1,29 +1,41 @@
 <?php
+session_start();
 require_once 'connection.php';
-include('session_customer.php');
+
+if (!isset($_SESSION['login_customer'])) {
+    header("Location: index.php");
+    exit;
+}
+
+$car_id = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+if (!$car_id) {
+    header("Location: index.php");
+    exit;
+}
 
 $conn = Connect();
 
-if(!isset($_SESSION['login_customer'])){
-    session_destroy();
-    header("location: customerlogin.php");
-}
-
-$car_id = $_GET["id"];
-$sql1 = "SELECT * FROM cars WHERE car_id = ?";
-$stmt = $conn->prepare($sql1);
+$sql = "SELECT * FROM cars WHERE car_id=?";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $car_id);
 $stmt->execute();
-$result1 = $stmt->get_result();
-$row1 = $result1->fetch_assoc();
+$car = $stmt->get_result()->fetch_assoc();
 
-$car_name = $row1["car_name"];
-$car_nameplate = $row1["car_nameplate"];
-$ac_price = $row1["ac_price"];
-$non_ac_price = $row1["non_ac_price"];
-$ac_price_per_day = $row1["ac_price_per_day"];
-$non_ac_price_per_day = $row1["non_ac_price_per_day"];
-$car_img = $row1["car_img"];
+$drivers = [];
+if ($car) {
+    $sql_driver = "SELECT * FROM driver WHERE driver_availability = 'yes'";
+    $stmt_driver = $conn->prepare($sql_driver);
+    $stmt_driver->execute();
+    $drivers = $stmt_driver->get_result()->fetch_all(MYSQLI_ASSOC);
+} else {
+    header("Location: index.php");
+    exit;
+}
+
+$stmt->close();
+$stmt_driver->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -31,113 +43,94 @@ $car_img = $row1["car_img"];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Car | LiveLife Automobiles</title>
-    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <title>Book <?php echo htmlspecialchars($car['car_name']); ?> | LiveLife Automobiles</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
     <style>
-        body { padding-top: 56px; }
-        .booking-form { max-width: 800px; margin: 0 auto; }
-        .car-image { max-width: 100%; height: auto; }
+        body {
+            background-color: #f8f9fa;
+            padding-top: 70px;
+        }
+        .booking-container { max-width: 900px; margin: 0 auto; }
+        .car-image { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .booking-card { background-color: white; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .booking-card .card-header { background-color: #007bff; color: white; border-top-left-radius: 10px; border-top-right-radius: 10px; }
+        .booking-card .form-control { border-radius: 5px; }
+        .booking-card .btn-primary { border-radius: 5px; }
+        .price-info { background-color: #e9ecef; border-radius: 5px; padding: 10px; margin-bottom: 20px; }
+        #total-cost { font-size: 1.2em; font-weight: bold; color: #28a745; }
     </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
 
-    <div class="container mt-4">
-        <h1 class="text-center mb-4">Book Your Car</h1>
+    <div class="container booking-container mt-5">
+        <h2 class="text-center mb-4">Book Your Car</h2>
         <div class="row">
             <div class="col-md-6">
-                <img src="<?php echo $car_img; ?>" alt="<?php echo $car_name; ?>" class="car-image mb-3">
-                <h3><?php echo $car_name; ?></h3>
-                <p><strong>Vehicle Number:</strong> <?php echo $car_nameplate; ?></p>
-                <p><strong>AC Price:</strong> <?php echo CURRENCY . $ac_price; ?>/km and <?php echo CURRENCY . $ac_price_per_day; ?>/day</p>
-                <p><strong>Non-AC Price:</strong> <?php echo CURRENCY . $non_ac_price; ?>/km and <?php echo CURRENCY . $non_ac_price_per_day; ?>/day</p>
+                <img src="<?php echo htmlspecialchars($car['car_img']); ?>" alt="<?php echo htmlspecialchars($car['car_name']); ?>" class="car-image mb-4">
+                <div class="price-info">
+                    <h5>Pricing Information</h5>
+                    <p><strong>AC Fare per Day:</strong> $<?php echo htmlspecialchars($car['ac_price_per_day']); ?></p>
+                    <p><strong>Non-AC Fare per Day:</strong> $<?php echo htmlspecialchars($car['non_ac_price_per_day']); ?></p>
+                    <p><strong>AC Price per KM:</strong> $<?php echo htmlspecialchars($car['ac_price']); ?></p>
+                    <p><strong>Non-AC Price per KM:</strong> $<?php echo htmlspecialchars($car['non_ac_price']); ?></p>
+                </div>
             </div>
             <div class="col-md-6">
-                <form id="booking-form" class="booking-form">
-                    <div class="form-group">
-                        <label for="start_date">Start Date</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" required min="<?php echo date('Y-m-d'); ?>">
+                <div class="card booking-card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"><?php echo htmlspecialchars($car['car_name']); ?> - <?php echo htmlspecialchars($car['car_nameplate']); ?></h5>
                     </div>
-                    <div class="form-group">
-                        <label for="end_date">End Date</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date" required min="<?php echo date('Y-m-d'); ?>">
+                    <div class="card-body">
+                        <form action="payment.php" method="POST" id="booking-form">
+                            <div class="form-group">
+                                <label for="start-date">Start Date</label>
+                                <input type="date" class="form-control" id="start-date" name="start_date" required min="<?php echo date('Y-m-d'); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="end-date">End Date</label>
+                                <input type="date" class="form-control" id="end-date" name="end_date" required min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="driver">Driver</label>
+                                <select class="form-control" id="driver" name="driver_id" required>
+                                    <option value="">Select a driver</option>
+                                    <?php foreach ($drivers as $driver): ?>
+                                        <option value="<?php echo intval($driver['driver_id']); ?>">
+                                            <?php echo htmlspecialchars($driver['driver_name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="charge-type">Charge Type</label>
+                                <select class="form-control" id="charge-type" name="charge_type" required>
+                                    <option value="day">Per Day</option>
+                                    <option value="km">Per KM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ac-type">AC Type</label>
+                                <select class="form-control" id="ac-type" name="ac_type" required>
+                                    <option value="ac">AC</option>
+                                    <option value="non_ac">Non-AC</option>
+                                </select>
+                            </div>
+                            <div id="km-input" class="form-group" style="display: none;">
+                                <label for="km">Estimated KM</label>
+                                <input type="number" class="form-control" id="km" name="km" min="1">
+                            </div>
+                            <div class="form-group">
+                                <p id="total-cost">Estimated Total: $0.00</p>
+                            </div>
+                            <input type="hidden" name="car_id" value="<?php echo intval($car['car_id']); ?>">
+                            <input type="hidden" name="car_type" value="<?php echo htmlspecialchars($car['car_name']); ?>">
+                            <input type="hidden" name="total_cost" id="hidden-total-cost" value="0">
+                            <button type="submit" class="btn btn-primary btn-block mt-4">Proceed to Payment</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label>Car Type</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="ac" name="car_type" class="custom-control-input" value="ac" required>
-                            <label class="custom-control-label" for="ac">AC</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="non_ac" name="car_type" class="custom-control-input" value="non_ac" required>
-                            <label class="custom-control-label" for="non_ac">Non-AC</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Charge Type</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="per_km" name="charge_type" class="custom-control-input" value="km" required>
-                            <label class="custom-control-label" for="per_km">Per KM</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="per_day" name="charge_type" class="custom-control-input" value="day" required>
-                            <label class="custom-control-label" for="per_day">Per Day</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="driver">Choose a Driver</label>
-                        <select class="form-control" id="driver" name="driver_id" required>
-                            <option value="">Select a driver</option>
-                            <?php
-                            $sql2 = "SELECT * FROM driver d WHERE d.driver_availability = 'yes' AND d.client_username IN (SELECT cc.client_username FROM clientcars cc WHERE cc.car_id = ?)";
-                            $stmt2 = $conn->prepare($sql2);
-                            $stmt2->bind_param("i", $car_id);
-                            $stmt2->execute();
-                            $result2 = $stmt2->get_result();
-                            while($row2 = $result2->fetch_assoc()) {
-                                echo "<option value='".$row2['driver_id']."'>".$row2['driver_name']." (".$row2['driver_gender'].")</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div id="driver-details" class="mt-3" style="display: none;">
-                        <h5>Driver Details</h5>
-                        <p id="driver-name"></p>
-                        <p id="driver-gender"></p>
-                        <p id="driver-phone"></p>
-                    </div>
-                    <input type="hidden" name="car_id" value="<?php echo $car_id; ?>">
-                    <button type="submit" class="btn btn-primary btn-block mt-4">Proceed to Payment</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentModalLabel">Payment</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="payment-form">
-                        <div id="card-element">
-                            <!-- A Stripe Element will be inserted here. -->
-                        </div>
-                        <!-- Used to display form errors. -->
-                        <div id="card-errors" role="alert"></div>
-                        <button id="submit-payment" class="btn btn-primary btn-block mt-4">Pay Now</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -145,83 +138,53 @@ $car_img = $row1["car_img"];
 
     <?php include 'footer.php'; ?>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#driver').change(function() {
-                var driverId = $(this).val();
-                if (driverId) {
-                    $.ajax({
-                        url: 'get_driver_details.php',
-                        type: 'POST',
-                        data: { driver_id: driverId },
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#driver-name').text('Name: ' + data.driver_name);
-                            $('#driver-gender').text('Gender: ' + data.driver_gender);
-                            $('#driver-phone').text('Phone: ' + data.driver_phone);
-                            $('#driver-details').show();
-                        }
-                    });
-                } else {
-                    $('#driver-details').hide();
+            function updateTotalCost() {
+                var startDate = new Date($('#start-date').val());
+                var endDate = new Date($('#end-date').val());
+                var chargeType = $('#charge-type').val();
+                var acType = $('#ac-type').val();
+                var km = $('#km').val();
+
+                if (startDate && endDate && chargeType && acType) {
+                    var days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                    var rate = acType === 'ac' ?
+                        (chargeType === 'day' ? <?php echo $car['ac_price_per_day']; ?> : <?php echo $car['ac_price']; ?>) :
+                        (chargeType === 'day' ? <?php echo $car['non_ac_price_per_day']; ?> : <?php echo $car['non_ac_price']; ?>);
+
+                    var totalCost = chargeType === 'day' ? days * rate : (km ? km * rate : 0);
+                    $('#total-cost').text('Estimated Total: $' + totalCost.toFixed(2));
+                    $('#hidden-total-cost').val(totalCost.toFixed(2));
                 }
-            });
+            }
 
             $('#booking-form').submit(function(e) {
-                e.preventDefault();
-                $('#paymentModal').modal('show');
-            });
+                var startDate = new Date($('#start-date').val());
+                var endDate = new Date($('#end-date').val());
 
-            // Create a Stripe client.
-            var stripe = Stripe('your_stripe_publishable_key');
-            var elements = stripe.elements();
-
-            // Create an instance of the card Element.
-            var card = elements.create('card');
-
-            // Add an instance of the card Element into the `card-element` <div>.
-            card.mount('#card-element');
-
-            // Handle real-time validation errors from the card Element.
-            card.addEventListener('change', function(event) {
-                var displayError = document.getElementById('card-errors');
-                if (event.error) {
-                    displayError.textContent = event.error.message;
-                } else {
-                    displayError.textContent = '';
+                if (endDate <= startDate) {
+                    alert('End date must be after the start date.');
+                    e.preventDefault();
                 }
+
+                // Ensure total cost is calculated before submission
+                updateTotalCost();
             });
 
-            // Handle form submission.
-            var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                stripe.createToken(card).then(function(result) {
-                    if (result.error) {
-                        // Inform the user if there was an error.
-                        var errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                    } else {
-                        // Send the token to your server.
-                        stripeTokenHandler(result.token);
-                    }
-                });
+            $('#charge-type').change(function() {
+                if ($(this).val() === 'km') {
+                    $('#km-input').show();
+                } else {
+                    $('#km-input').hide();
+                }
+                updateTotalCost();
             });
 
-            // Submit the form with the token ID.
-            function stripeTokenHandler(token) {
-                // Insert the token ID into the form so it gets submitted to the server
-                var form = document.getElementById('payment-form');
-                var hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripeToken');
-                hiddenInput.setAttribute('value', token.id);
-                form.appendChild(hiddenInput);
-
-                // Submit the form
-                form.submit();
-            }
+            $('#start-date, #end-date, #charge-type, #ac-type, #km').change(updateTotalCost);
         });
     </script>
 </body>
