@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'config.php';
 require_once 'connection.php';
 
 if (!isset($_SESSION['login_customer'])) {
@@ -72,10 +73,10 @@ $conn->close();
                 <img src="<?php echo htmlspecialchars($car['car_img']); ?>" alt="<?php echo htmlspecialchars($car['car_name']); ?>" class="car-image mb-4">
                 <div class="price-info">
                     <h5>Pricing Information</h5>
-                    <p><strong>AC Fare per Day:</strong> $<?php echo htmlspecialchars($car['ac_price_per_day']); ?></p>
-                    <p><strong>Non-AC Fare per Day:</strong> $<?php echo htmlspecialchars($car['non_ac_price_per_day']); ?></p>
-                    <p><strong>AC Price per KM:</strong> $<?php echo htmlspecialchars($car['ac_price']); ?></p>
-                    <p><strong>Non-AC Price per KM:</strong> $<?php echo htmlspecialchars($car['non_ac_price']); ?></p>
+                    <p><strong>AC Fare per Day:</strong> <?php echo(CURRENCY. htmlspecialchars($car['ac_price_per_day'])); ?></p>
+                    <p><strong>Non-AC Fare per Day:</strong> <?php echo(CURRENCY. htmlspecialchars($car['non_ac_price_per_day'])); ?></p>
+                    <p><strong>AC Price per KM:</strong> <?php echo(CURRENCY.htmlspecialchars($car['ac_price'])); ?></p>
+                    <p><strong>Non-AC Price per KM:</strong> <?php echo(CURRENCY.htmlspecialchars($car['non_ac_price'])); ?></p>
                 </div>
             </div>
             <div class="col-md-6">
@@ -123,7 +124,7 @@ $conn->close();
                                 <input type="number" class="form-control" id="km" name="km" min="1">
                             </div>
                             <div class="form-group">
-                                <p id="total-cost">Estimated Total: $0.00</p>
+                                <p id="total-cost">Estimated Total: <?php echo CURRENCY?>0.00</p>
                             </div>
                             <input type="hidden" name="car_id" value="<?php echo intval($car['car_id']); ?>">
                             <input type="hidden" name="car_type" value="<?php echo htmlspecialchars($car['car_name']); ?>">

@@ -83,7 +83,7 @@ unset($_SESSION['booking_success'], $_SESSION['car_id'], $_SESSION['start_date']
                                 <li class="list-group-item"><strong>End Date:</strong> <?php echo $end_date; ?></li>
                                 <li class="list-group-item"><strong>Car Type:</strong> <?php echo ucfirst($car_type); ?></li>
                                 <li class="list-group-item"><strong>Charge Type:</strong> <?php echo ucfirst($charge_type); ?></li>
-                                <li class="list-group-item"><strong>Total Cost:</strong> $<?php echo number_format($total_cost, 2); ?></li>
+                                <li class="list-group-item"><strong>Total Cost:</strong> <?php echo(CURRENCY.number_format($total_cost, 2)); ?></li>
                                 <li class="list-group-item"><strong>Driver:</strong> <?php echo $driver_details['driver_name']; ?> (Phone: <?php echo $driver_details['driver_phone']; ?>)</li>
                             </ul>
                         </div>

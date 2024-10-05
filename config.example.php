@@ -20,6 +20,3 @@
     // contact details
     define('CONTACT_NUM', '(233) 550 144 927');
     define('CONTACT_EMAIL', 'your-email@gmail.com');
-
-    // strip payment token
-    define('STRIPE_TOKEN', 'pk_test_51NJdyxCRu5RxqPXLCdS6hc1wysFI1y2VfwXXINWwYV0LgDT3jGOPb3UfOdHf8OEhvSNYzQtmjX7Ot2qc0FEbLBEn00CdswZtb6'); // test token
