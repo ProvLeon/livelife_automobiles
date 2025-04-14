@@ -145,6 +145,7 @@ $conn->close();
     <script>
         $(document).ready(function() {
             function updateTotalCost() {
+            const currencySymbol = '<?php echo CURRENCY; ?>';
                 var startDate = new Date($('#start-date').val());
                 var endDate = new Date($('#end-date').val());
                 var chargeType = $('#charge-type').val();
@@ -158,7 +159,7 @@ $conn->close();
                         (chargeType === 'day' ? <?php echo $car['non_ac_price_per_day']; ?> : <?php echo $car['non_ac_price']; ?>);
 
                     var totalCost = chargeType === 'day' ? days * rate : (km ? km * rate : 0);
-                    $('#total-cost').text('Estimated Total: $' + totalCost.toFixed(2));
+                    $('#total-cost').text('Estimated Total: ' + currencySymbol + totalCost.toFixed(2));
                     $('#hidden-total-cost').val(totalCost.toFixed(2));
                 }
             }

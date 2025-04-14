@@ -71,7 +71,7 @@ $_SESSION['total_cost'] = $total_cost;
                 </div>
                 <div class="form-group">
                     <label for="total-amount">Total Amount</label>
-                    <input type="text" class="form-control" id="total-amount" value="$<?php echo $total_cost; ?>" readonly>
+                    <input type="text" class="form-control" id="total-amount" value="<?php echo CURRENCY . $total_cost; ?>" readonly>
                 </div>
 
                 <!-- Hidden fields for booking data -->
@@ -95,6 +95,7 @@ $_SESSION['total_cost'] = $total_cost;
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+          // const currencySymbol = '<?php echo CURRENCY; ?>';
             $('#payment-form').submit(function(e) {
                 var cardNumber = $('#card-number').val().replace(/\s/g, '');
                 var expiryDate = $('#expiry-date').val();
