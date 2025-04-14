@@ -136,6 +136,9 @@ if (session_status() == PHP_SESSION_NONE) {
                         <a class="nav-link" href="customerlogin.php">Customer</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="about.php">About Us</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="faq.php">FAQ</a>
                     </li>
                 </ul>
