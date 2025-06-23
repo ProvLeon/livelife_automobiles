@@ -34,9 +34,14 @@ $driver_details = $driver_result->fetch_assoc();
 
 $conn->close();
 
+// Store email status before clearing session
+$email_sent = isset($_SESSION['email_sent']) ? $_SESSION['email_sent'] : false;
+$customer_email = isset($_SESSION['customer_email']) ? $_SESSION['customer_email'] : '';
+
 // Clear the session variables
 unset($_SESSION['booking_success'], $_SESSION['car_id'], $_SESSION['start_date'], $_SESSION['end_date'],
-      $_SESSION['car_type'], $_SESSION['charge_type'], $_SESSION['driver_id'], $_SESSION['total_cost'], $_SESSION['booking_id']);
+      $_SESSION['car_type'], $_SESSION['charge_type'], $_SESSION['driver_id'], $_SESSION['total_cost'], $_SESSION['booking_id'],
+      $_SESSION['email_sent'], $_SESSION['customer_email']);
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +79,18 @@ unset($_SESSION['booking_success'], $_SESSION['car_id'], $_SESSION['start_date']
                             <h5 class="card-title">Thank you for your booking!</h5>
                             <p class="card-text">Your booking has been confirmed. Here are the details:</p>
 
+                            <?php if ($email_sent && !empty($customer_email)): ?>
+                                <div class="alert alert-success" role="alert">
+                                    <i class="fas fa-check-circle"></i> <strong>Confirmation email sent!</strong>
+                                    Please check your email at <?php echo htmlspecialchars($customer_email); ?> for detailed booking information.
+                                </div>
+                            <?php elseif (!empty($customer_email)): ?>
+                                <div class="alert alert-warning" role="alert">
+                                    <i class="fas fa-exclamation-triangle"></i> <strong>Booking confirmed!</strong>
+                                    However, we couldn't send the confirmation email. Please save this page for your records.
+                                </div>
+                            <?php endif; ?>
+
                             <img src="<?php echo $car_details['car_img']; ?>" alt="<?php echo $car_details['car_name']; ?>" class="car-image">
 
                             <ul class="list-group list-group-flush">
@@ -88,7 +105,11 @@ unset($_SESSION['booking_success'], $_SESSION['car_id'], $_SESSION['start_date']
                             </ul>
                         </div>
                         <div class="card-footer">
-                            <p class="mb-0">If you have any questions, please contact our customer support.</p>
+                            <p class="mb-0">If you have any questions, please contact our customer support:</p>
+                            <p class="mb-0">
+                                <i class="fas fa-phone"></i> <?php echo CONTACT_NUM; ?> |
+                                <i class="fas fa-envelope"></i> <?php echo CONTACT_EMAIL; ?>
+                            </p>
                         </div>
                     </div>
                     <div class="text-center mt-4">

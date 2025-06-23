@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'connection.php';
+require_once 'email_service.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Simulate payment processing
@@ -59,6 +60,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         );
 
         if ($stmt->execute()) {
+            // Get customer details for email
+            $customer_sql = "SELECT customer_name, customer_email FROM customers WHERE customer_username = ?";
+            $customer_stmt = $conn->prepare($customer_sql);
+            $customer_stmt->bind_param("s", $customer_username);
+            $customer_stmt->execute();
+            $customer_result = $customer_stmt->get_result();
+            $customer_details = $customer_result->fetch_assoc();
+
+            // Get car details for email
+            $car_sql = "SELECT car_name, car_nameplate FROM cars WHERE car_id = ?";
+            $car_stmt = $conn->prepare($car_sql);
+            $car_stmt->bind_param("i", $_SESSION['car_id']);
+            $car_stmt->execute();
+            $car_result = $car_stmt->get_result();
+            $car_details = $car_result->fetch_assoc();
+
+            // Get driver details for email
+            $driver_sql = "SELECT driver_name, driver_phone FROM driver WHERE driver_id = ?";
+            $driver_stmt = $conn->prepare($driver_sql);
+            $driver_stmt->bind_param("i", $_SESSION['driver_id']);
+            $driver_stmt->execute();
+            $driver_result = $driver_stmt->get_result();
+            $driver_details = $driver_result->fetch_assoc();
+
+            // Prepare booking details for email
+            $bookingDetails = [
+                'booking_id' => $booking_id,
+                'car_name' => $car_details['car_name'],
+                'car_nameplate' => $car_details['car_nameplate'],
+                'start_date' => $_SESSION['start_date'],
+                'end_date' => $_SESSION['end_date'],
+                'no_of_days' => $no_of_days,
+                'charge_type' => $_SESSION['charge_type'],
+                'driver_name' => $driver_details['driver_name'],
+                'driver_phone' => $driver_details['driver_phone'],
+                'total_amount' => $_SESSION['total_cost']
+            ];
+
+            // Send booking confirmation email
+            $emailService = new EmailService();
+            $emailSent = $emailService->sendBookingConfirmation(
+                $customer_details['customer_email'],
+                $customer_details['customer_name'],
+                $bookingDetails
+            );
+
+            // Store email status in session for display
+            $_SESSION['email_sent'] = $emailSent;
+            $_SESSION['customer_email'] = $customer_details['customer_email'];
+
             $_SESSION['booking_success'] = true;
             $_SESSION['booking_id'] = $booking_id;
             header("Location: booking_confirmation.php");
