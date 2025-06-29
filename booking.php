@@ -4,7 +4,7 @@ require_once 'config.php';
 require_once 'connection.php';
 
 if (!isset($_SESSION['login_customer'])) {
-    header("Location: index.php");
+    header("Location: customerlogin.php");
     exit;
 }
 

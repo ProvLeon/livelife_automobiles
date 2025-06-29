@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $customerData['customer_email'],
                 $customerData['customer_phone'],
                 $customerData['customer_address'],
-                $hashedPassword
+                $customerData['customer_password']
             );
 
             if ($stmt->execute()) {
